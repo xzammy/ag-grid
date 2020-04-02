@@ -66,7 +66,7 @@
 @mixin ag-card() {
     @include ag-border(primary);
     
-    background: ag-param(background-color);
+    @include ag-css-var-override(background, background-color);
     border-radius: ag-param(card-radius);
     box-shadow: ag-param(card-shadow);
     padding: ag-param(grid-size);

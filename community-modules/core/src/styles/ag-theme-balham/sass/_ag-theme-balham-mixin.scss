@@ -2,6 +2,7 @@
 @import "./ag-theme-balham-default-params";
 
 @mixin ag-theme-balham($params: ()) {
+    $ag-require-colors-to-have-css-var-override: true !global;
     
     $params: ag-process-theme-variables($params, $ag-theme-balham-default-params);
     @include ag-theme-base($params);
@@ -11,7 +12,7 @@
     .ag-status-bar,
     .ag-header-row {
         font-weight: 600;
-        color: ag-param(header-foreground-color);
+        @include ag-css-var-override(color, header-foreground-color);
     }
 
     %ag-text-input {
@@ -22,7 +23,7 @@
 
     .ag-column-drop-vertical-empty-message, .ag-status-bar {
         font-weight: 600;
-        color: ag-param(disabled-foreground-color);
+        @include ag-css-var-override(color, disabled-foreground-color);
     }
     .ag-dnd-ghost {
         font-weight: 600;
@@ -36,8 +37,8 @@
     }
 
     .ag-tab-selected {
-        background-color: ag-param(background-color);
-        border-color: ag-param(border-color);
+        @include ag-css-var-override(background-color, background-color);
+        @include ag-css-var-override(border-color, border-color);
         border-bottom-color: transparent;
     }
 
@@ -50,7 +51,7 @@
     }
 
     .ag-column-drop-vertical-title {
-        color: ag-param(foreground-color);
+        @include ag-css-var-override(color, foreground-color);
     }
 
     .ag-column-drop-vertical-cell {
@@ -63,7 +64,7 @@
     }
     
     .ag-column-drop-vertical-icon {
-        color: ag-param(secondary-foreground-color);
+        @include ag-css-var-override(color, secondary-foreground-color);
     }
     
     .ag-column-drop-vertical-empty-message {
@@ -78,7 +79,7 @@
     }
 
     .ag-column-drop-empty {
-        color: ag-param(disabled-foreground-color);
+        @include ag-css-var-override(color, disabled-foreground-color);
     }
 
     .ag-column-drop-horizontal-cell-text {
@@ -90,13 +91,13 @@
     }
 
     .ag-menu-header {
-        background-color: ag-param(header-background-color);
+        @include ag-css-var-override(background-color, header-background-color);
     }
 
     .ag-overlay-loading-center {
-        background-color: ag-param(background-color);
+        @include ag-css-var-override(background-color, background-color);
         border: 1px solid ag-param(border-color);
-        color: ag-param(foreground-color);
+        @include ag-css-var-override(color, foreground-color);
         padding: ag-param(grid-size) * 4;
     }
 
@@ -127,4 +128,5 @@
     .ag-charts-format-sub-level-group-item {
         margin-bottom: ag-param(grid-size) * 1.5;
     }
+    $ag-require-colors-to-have-css-var-override: false !global;
 }

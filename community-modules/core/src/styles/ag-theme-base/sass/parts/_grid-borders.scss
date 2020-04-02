@@ -15,18 +15,18 @@
     }
     
     .ag-row-selected {
-        background-color: ag-param(selected-row-background-color);
+        @include ag-css-var-override(background-color, selected-row-background-color);
     }
 
     // we do not want to color the range color when the cell is also focused
     .ag-cell-range-selected:not(.ag-cell-focus) {
-        background-color: ag-param(range-selection-background-color);
+        @include ag-css-var-override(background-color, range-selection-background-color);
         &.ag-cell-range-chart {
-            background-color: ag-param(range-selection-chart-background-color);
+            @include ag-css-var-override(background-color, range-selection-chart-background-color);
         }
 
         &.ag-cell-range-chart.ag-cell-range-chart-category {
-            background-color: ag-param(range-selection-chart-category-background-color);
+            @include ag-css-var-override(background-color, range-selection-chart-category-background-color);
         }
     }
 
@@ -48,16 +48,16 @@
 
     .ag-cell.ag-cell-range-selected:not(.ag-cell-range-single-cell) {
         &.ag-cell-range-top {
-            border-top-color: ag-param(range-selection-border-color);
+            @include ag-css-var-override(border-top-color, range-selection-border-color);
         }
         &.ag-cell-range-right {
-            border-right-color: ag-param(range-selection-border-color);
+            @include ag-css-var-override(border-right-color, range-selection-border-color);
         }
         &.ag-cell-range-bottom {
-            border-bottom-color: ag-param(range-selection-border-color);
+            @include ag-css-var-override(border-bottom-color, range-selection-border-color);
         }
         &.ag-cell-range-left {
-            border-left-color: ag-param(range-selection-border-color);
+            @include ag-css-var-override(border-left-color, range-selection-border-color);
         }
     }
 
@@ -97,7 +97,7 @@
         height: 6px;
         bottom: -1px;
         @include ag-theme-rtl((right: -1px));
-        background-color: ag-param(range-selection-border-color);
+        @include ag-css-var-override(background-color, range-selection-border-color);
     }
 
     .ag-fill-handle {
@@ -111,6 +111,6 @@
     }
 
     .ag-cell-inline-editing {
-        border-color: ag-param(input-focus-border-color) !important;
+        @include ag-css-var-override(border-color, input-focus-border-color, $important: true);
     }
 }

@@ -2,6 +2,7 @@
 @import "./ag-theme-alpine-default-params";
 
 @mixin ag-theme-alpine($params: ()) {
+    $ag-require-all-colors-to-use-mixin: true !global;
     
     $params: ag-process-theme-variables($params, $ag-theme-alpine-default-params);
     @include ag-theme-base($params);
@@ -12,7 +13,7 @@
     .ag-header-row,
     .ag-panel-title-bar-title {
         font-weight: 700;
-        color: ag-param(header-foreground-color);
+        @include ag-css-var-override(color, header-foreground-color);
     }
 
     .ag-row {
@@ -33,15 +34,15 @@
         transition: color 0.4s;
     }
     .ag-tab-selected {
-        color: ag-param(alpine-active-color);
+        @include ag-css-var-override(color, alpine-active-color);
     }
 
     .ag-menu {
-        background-color: ag-param(control-panel-background-color);
+        @include ag-css-var-override(background-color, control-panel-background-color);
     }
 
     .ag-menu-header {
-        background-color: ag-param(control-panel-background-color);
+        @include ag-css-var-override(background-color, control-panel-background-color);
         padding-top: 1px; // hack to align column menu tab header border with header row border
     }
     
@@ -57,7 +58,7 @@
     }
 
     .ag-chart-mini-thumbnail {
-        background-color: ag-param(background-color);
+        @include ag-css-var-override(background-color, background-color);
     }
     
     .ag-chart-settings-nav-bar {
@@ -108,20 +109,20 @@
         -webkit-appearance: none;
         border-radius: ag-param(border-radius);
         border: 1px solid ag-param(alpine-active-color);
-        color: ag-param(alpine-active-color);
-        background: ag-param(background-color);
+        @include ag-css-var-override(color, alpine-active-color);
+        @include ag-css-var-override(background, background-color);
         font-weight: 600;
         padding: ag-param(grid-size) ag-param(grid-size) * 2;
     
         &:hover {
-            border-color: ag-param(alpine-active-color);
+            @include ag-css-var-override(border-color, alpine-active-color);
             background-color: rgba(ag-param(alpine-active-color), 0.1);
         }
     
         &:active {
-            border-color: ag-param(alpine-active-color);
-            background-color: ag-param(alpine-active-color);
-            color: ag-param(background-color);
+            @include ag-css-var-override(border-color, alpine-active-color);
+            @include ag-css-var-override(background-color, alpine-active-color);
+            @include ag-css-var-override(color, background-color);
         }
     }
 
@@ -190,7 +191,7 @@
     .ag-floating-filter-button-button,
     .ag-filter-toolpanel-expand {
         &:hover {
-            color: ag-param(alpine-active-color);
+            @include ag-css-var-override(color, alpine-active-color);
         }
     }
 
@@ -211,7 +212,7 @@
 
     .ag-filter-toolpanel-instance-filter {
         border: none;
-        background-color: ag-param(control-panel-background-color);
+        @include ag-css-var-override(background-color, control-panel-background-color);
         border-left: dashed 1px ag-param(border-color);
         margin-left: ag-param(grid-size) + ag-param(icon-size) / 2 - 1px;
         padding-left: ag-param(icon-size) / 2;
@@ -228,6 +229,7 @@
     }
 
     .ag-date-time-list-page-entry-is-current {
-        background-color: ag-param(alpine-active-color);
+        @include ag-css-var-override(background-color, alpine-active-color);
     }
+    $ag-require-all-colors-to-use-mixin: false !global;
 }

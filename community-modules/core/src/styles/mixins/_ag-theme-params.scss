@@ -63,8 +63,15 @@ $-ag-params: null !default;
     $-ag-params: $params !global;
 }
 
+$-ag-is-inside-ag-color-param: false;
+$ag-require-colors-to-have-css-var-override: false !global;
+
 // Use a parameter in SCSS, e.g. `color: ag-param(foreground-color)`
 @function ag-param($name) {
+    @if $ag-require-colors-to-have-css-var-override and str-index($name, "-color") and not $-ag-is-inside-ag-color-param {
+        // uncomment during development to catch use of 
+        // @error "Illegal call to ag-param(#{$name}) - all colour params must be accessed through the ag-color-param mixin.";
+    }
     $resolved: ag-param-unchecked($name);
     @if str-index(inspect($resolved), "ag-derived(") != null {
         @error "#{$name} param contains a ag-derived() as a CSS function call expression. This means that you have tried to use ag-derived() before the function is defined - you need to include the file that defines it.";
@@ -78,6 +85,19 @@ $-ag-params: null !default;
         }
     }
     @return $resolved;
+}
+
+@mixin ag-css-var-override($property, $param-name, $important: false) {
+    $-is-inside-ag-color-param: true !global;
+    $value: ag-param($param-name);
+    $important: if($important, !important, null);
+    @if $value != null {
+        #{$property}: $value $important;
+        @if not ag-param(suppress-color-css-var-overrides) {
+            #{$property}: var(--ag-#{$param-name}, #{$value}) $important;
+        }
+    }
+    $-is-inside-ag-color-param: false !global;
 }
 
 // Like ag-param, but allow map values

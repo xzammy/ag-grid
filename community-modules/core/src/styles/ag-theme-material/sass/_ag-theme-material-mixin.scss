@@ -2,6 +2,7 @@
 @import "./ag-theme-material-default-params";
 
 @mixin ag-theme-material($params: ()) {
+    $ag-require-colors-to-have-css-var-override: true !global;
   
     $params: ag-process-theme-variables($params, $ag-theme-material-default-params);
     @include ag-theme-base($params);
@@ -14,7 +15,7 @@
     .ag-side-button-button {
         font-size: ag-param(font-size) - 1;
         font-weight: 600;
-        color: ag-param(header-foreground-color);
+        @include ag-css-var-override(color, header-foreground-color);
     }
 
     .ag-tab {
@@ -23,7 +24,7 @@
 
     .ag-tabs-header,
     .ag-column-drop-horizontal {
-        background-color: ag-param(subheader-background-color);
+        @include ag-css-var-override(background-color, subheader-background-color);
     }
 
     .ag-tabs-body {
@@ -40,7 +41,7 @@
     }
 
     .ag-side-button-button {
-        color: ag-param(secondary-foreground-color);
+        @include ag-css-var-override(color, secondary-foreground-color);
     }
 
     .ag-column-drop-vertical {
@@ -63,7 +64,7 @@
     .ag-column-drop-vertical-empty-message {
         font-size: ag-param(font-size) - 1;
         font-weight: 600;
-        color: ag-param(disabled-foreground-color);
+        @include ag-css-var-override(color, disabled-foreground-color);
 
         @include ag-theme-rtl((
             padding-left: ag-param(icon-size) + ag-param(grid-size) * 2,
@@ -108,7 +109,7 @@
 
     %ag-text-input {
         background: transparent;
-        color: ag-param(foreground-color);
+        @include ag-css-var-override(color, foreground-color);
         font-family: inherit;
         font-size: inherit;
         height: ag-param(grid-size) * 5;
@@ -124,7 +125,7 @@
         }
 
         &::placeholder {
-            color: ag-param(disabled-foreground-color);
+            @include ag-css-var-override(color, disabled-foreground-color);
         }
 
         &:disabled {
@@ -136,7 +137,7 @@
         appearance: none;
         background-color: transparent;
         border: 0;
-        color: ag-param(material-primary-color);
+        @include ag-css-var-override(color, material-primary-color);
         font-family: inherit;
         font-size: inherit;
         margin: 0;
@@ -160,4 +161,5 @@
     .ag-overlay-no-rows-wrapper.ag-layout-auto-height {
         padding-top: 60px;
     }
+    $ag-require-colors-to-have-css-var-override: false !global;
 }

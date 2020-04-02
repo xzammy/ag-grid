@@ -42,13 +42,13 @@
     }
 
     .ag-tab-selected {
-        background-color: ag-param(background-color);
-        border-color: ag-param(border-color);
+        @include ag-css-var-override(background-color, background-color);
+        @include ag-css-var-override(border-color, border-color);
         border-bottom-color: transparent;
     }
 
     .ag-tabs-header {
-        background-color: ag-param(header-background-color);
+        @include ag-css-var-override(background-color, header-background-color);
         border-bottom: 1px solid ag-param(border-color);
     }
 
@@ -57,7 +57,7 @@
     }
 
     .ag-menu-option-active {
-        background-color: ag-param(selected-row-background-color);
+        @include ag-css-var-override(background-color, selected-row-background-color);
     }
 
     .ag-column-drop-cell {
@@ -70,7 +70,7 @@
     }
 
     .ag-column-drop-cell-button:hover .ag-icon {
-        border-color: ag-param(border-color);
+        @include ag-css-var-override(border-color, border-color);
     }
 
     .ag-panel-title-bar-button-icon {
