@@ -75,7 +75,8 @@
     }
 
     .ag-charts-format-sub-level-group {
-        border-left: dashed 1px ag-param(border-color);
+        border-left: dashed 1px;
+        @include ag-css-var-override(border-left-color, border-color);
         padding-left: ag-param(grid-size);
         margin-bottom: ag-param(grid-size) * 2;
     }
@@ -108,7 +109,8 @@
         appearance: none;
         -webkit-appearance: none;
         border-radius: ag-param(border-radius);
-        border: 1px solid ag-param(alpine-active-color);
+        border: 1px solid;
+        @include ag-css-var-override(border-color, alpine-active-color);
         @include ag-css-var-override(color, alpine-active-color);
         @include ag-css-var-override(background, background-color);
         font-weight: 600;
@@ -147,7 +149,8 @@
     .ag-column-drop-vertical-empty-message {
         display: flex;
         align-items: center;
-        border: dashed 1px ag-param(border-color);
+        border: dashed 1px;
+        @include ag-css-var-override(border-color, border-color);
         margin: ag-param(grid-size) * 2;
         padding: ag-param(grid-size) * 2;
     }
@@ -213,7 +216,8 @@
     .ag-filter-toolpanel-instance-filter {
         border: none;
         @include ag-css-var-override(background-color, control-panel-background-color);
-        border-left: dashed 1px ag-param(border-color);
+        border-left: dashed 1px;
+        @include ag-css-var-override(border-left-color, border-color);
         margin-left: ag-param(grid-size) + ag-param(icon-size) / 2 - 1px;
         padding-left: ag-param(icon-size) / 2;
         margin-right: ag-param(grid-size) * 2;

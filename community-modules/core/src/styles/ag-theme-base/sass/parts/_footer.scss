@@ -2,7 +2,8 @@
 @mixin ag-theme-base-part-footer {
     
     .ag-paging-panel {
-        border-top: 1px solid ag-param(border-color);
+        border-top: 1px solid;
+        @include ag-css-var-override(border-top-color, border-color);
         @include ag-css-var-override(color, secondary-foreground-color);
         height: ag-param(header-height);
         // padding: 0 ag-param(cell-horizontal-padding);

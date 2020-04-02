@@ -49,7 +49,8 @@
 
     .ag-tabs-header {
         @include ag-css-var-override(background-color, header-background-color);
-        border-bottom: 1px solid ag-param(border-color);
+        border-bottom: 1px solid;
+        @include ag-css-var-override(border-bottom-color, border-color);
     }
 
     .ag-filter .ag-filter-apply-panel {
@@ -61,7 +62,8 @@
     }
 
     .ag-column-drop-cell {
-        border: 1px solid ag-param(border-color);
+        border: 1px solid;
+        @include ag-css-var-override(border-color, border-color);
         border-radius: 0;
     }
 

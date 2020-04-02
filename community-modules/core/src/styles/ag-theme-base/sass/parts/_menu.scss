@@ -84,7 +84,8 @@
     }
 
     .ag-keyboard-focus .ag-tab:focus {
-        outline: 1px solid ag-param(input-focus-border-color);
+        outline: 1px solid;
+        @include ag-css-var-override(outline, input-focus-border-color);
         outline-offset: -4px;
     }
 

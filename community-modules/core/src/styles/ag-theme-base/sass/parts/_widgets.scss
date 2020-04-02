@@ -254,7 +254,8 @@
         width: 24px;
         height: 24px;
         border-radius: 12px;
-        box-shadow: 0 0 2px ag-param(foreground-color);
+        box-shadow: 0 0 2px;
+        @include ag-css-var-override(box-shadow, foreground-color);
         @include ag-css-var-override(background-color, background-color);
     }
     .ag-angle-select-child-circle {
@@ -269,7 +270,8 @@
     }
 
     .ag-picker-field-wrapper {
-        border: 1px solid ag-param(border-color);
+        border: 1px solid;
+        @include ag-css-var-override(border-color, border-color);
         border-radius: 5px;
         &:focus {
             box-shadow: ag-param(input-focus-box-shadow);
@@ -584,7 +586,8 @@
     border-radius: ag-param(toggle-button-height) / 2;
     position: relative;
     flex: none;
-    border: $border-width solid ag-param(toggle-button-off-border-color);
+    border: $border-width solid;
+    @include ag-css-var-override(border-color, toggle-button-off-border-color);
 
     input {
         opacity: 0;
@@ -618,7 +621,8 @@
         @include ag-css-var-override(background-color, toggle-button-switch-background-color);
         border-radius: ag-param(toggle-button-height) / 2;
         transition: left 100ms;
-        border: $border-width solid ag-param(toggle-button-switch-border-color);
+        border: $border-width solid;
+        @include ag-css-var-override(border-color, toggle-button-switch-border-color);
     }
 
     &.ag-checked::before {
@@ -670,7 +674,8 @@
         width: ag-param(icon-size);
         height: ag-param(icon-size);
         @include ag-css-var-override(background, background-color);
-        border: 1px solid ag-param(checkbox-unchecked-color);
+        border: 1px solid;
+        @include ag-css-var-override(border-color, checkbox-unchecked-color);
         border-radius: ag-param(icon-size);
     }
 }
@@ -691,7 +696,8 @@
     }
     @else {
         @if ag-param(input-focus-border-color) {
-            box-shadow: ag-param(input-focus-box-shadow), inset 0 0 5px ag-param(input-focus-border-color);
+            box-shadow: ag-param(input-focus-box-shadow), inset 0 0 5px;
+            @include ag-css-var-override(box-shadow, input-focus-border-color);
         }
     }
 }

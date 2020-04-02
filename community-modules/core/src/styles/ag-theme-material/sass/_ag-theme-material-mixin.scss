@@ -45,7 +45,8 @@
     }
 
     .ag-column-drop-vertical {
-        border-bottom: solid 1px ag-param(border-color);
+        border-bottom: solid 1px;
+        @include ag-css-var-override(border-bottom-color, border-color);
         padding-top: ag-param(grid-size);
         
         &.ag-last-column-drop {
@@ -58,7 +59,8 @@
     }
 
     .ag-set-filter-select-all {
-        border-bottom: solid 1px ag-param(border-color);
+        border-bottom: solid 1px;
+        @include ag-css-var-override(border-bottom-color, border-color);
     }
 
     .ag-column-drop-vertical-empty-message {
@@ -73,15 +75,18 @@
     }
 
     .ag-status-bar {
-        border: solid 1px ag-param(border-color);
+        border: solid 1px;
+        @include ag-css-var-override(border-color, border-color);
     }
 
     .ag-column-panel-column-select {
-        border-top: solid 1px ag-param(border-color);
+        border-top: solid 1px;
+        @include ag-css-var-override(border-top-color, border-color);
     }
 
     .ag-column-select, .ag-column-select-header {
-        border-bottom: solid 1px ag-param(border-color);
+        border-bottom: solid 1px;
+        @include ag-css-var-override(border-bottom-color, border-color);
     }
 
     .ag-column-select-header {
@@ -116,10 +121,12 @@
         padding-bottom: ag-param(grid-size);
 
         border-width: 0;
-        border-bottom: 2px solid ag-param(border-color);
+        border-bottom: 2px solid;
+        @include ag-css-var-override(border-bottom-color, border-color);
 
         &:focus {
-            border-bottom: 2px solid ag-param(material-primary-color);
+            border-bottom: 2px solid;
+            @include ag-css-var-override(border-bottom-color, material-primary-color);
             outline: none;
             box-shadow: none;
         }
@@ -129,7 +136,8 @@
         }
 
         &:disabled {
-            border-bottom: 1px solid ag-param(border-color);
+            border-bottom: 1px solid;
+            @include ag-css-var-override(border-bottom-color, border-color);
         }
     }
 

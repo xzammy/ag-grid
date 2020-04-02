@@ -97,7 +97,8 @@
 
     .ag-overlay-loading-center {
         @include ag-css-var-override(background-color, background-color);
-        border: 1px solid ag-param(border-color);
+        border: 1px solid;
+        @include ag-css-var-override(border-color, border-color);
         @include ag-css-var-override(color, foreground-color);
         padding: ag-param(grid-size) * 4;
     }
