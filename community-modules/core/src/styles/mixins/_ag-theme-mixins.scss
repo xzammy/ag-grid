@@ -9,19 +9,29 @@
     line-height: inherit;
 }
 
-@mixin ag-border($border-type, $sides: null, $radius: null, $width: 1px, $color: null, $style: solid, $none: false) {
+@mixin ag-border($border-type, $sides: null, $radius: null, $width: 1px, $style: solid, $none: false) {
     @if ag-should-draw-border($border-type) {
-        @if $color == null {
-            $color: if($border-type == secondary, ag-param(secondary-border-color), ag-param(border-color))
-        }
+        $color-param: if($border-type == secondary, secondary-border-color, border-color);
 
         @if $sides {
             @each $side in $sides {
-                border-#{$side}: if($none, none, $style $width $color);
+                @if $none {
+                    border-#{$side}: none;
+                }
+                @else {
+                    border-#{$side}: $style $width;
+                    @include ag-css-var-override(border-#{$side}-color, $color-param);
+                }
             }
         }
         @else {
-            border: if($none, none, $style $width $color);
+            @if $none {
+                border: none;
+            }
+            @else {
+                border: $style $width;
+                @include ag-css-var-override(border-color, $color-param);
+            }
         }
         @if $radius {
             border-radius: $radius;

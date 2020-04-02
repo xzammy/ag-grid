@@ -43,7 +43,8 @@
     }
 
     .ag-tabs-header {
-        border-bottom: 1px solid ag-param(border-color);
+        border-bottom: 1px solid;
+        @include ag-css-var-override(border-bottom-color, border-color);
     }
 
     .ag-column-drop-cell {
