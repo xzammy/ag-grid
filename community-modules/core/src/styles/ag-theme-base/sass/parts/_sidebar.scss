@@ -6,14 +6,14 @@
     }
 
     .ag-tool-panel-wrapper {
-        @include ag-css-var-override(background-color, control-panel-background-color);
+        @include ag-color-param(background-color, control-panel-background-color);
     }
 
     .ag-side-buttons {
         padding-top: ag-param(grid-size) * 4;
         width: ag-param(icon-size) + 4;
         position: relative;
-        @include ag-css-var-override(color, foreground-color);
+        @include ag-color-param(color, foreground-color);
         overflow: hidden;
     }
 
@@ -44,9 +44,9 @@
 
     .ag-selected .ag-side-button-button {
         @if ag-param(borders-side-button) {
-            @include ag-css-var-override(background-color, control-panel-background-color);
-            @include ag-css-var-override(border-top-color, border-color);
-            @include ag-css-var-override(border-bottom-color, border-color);
+            @include ag-color-param(background-color, control-panel-background-color);
+            @include ag-color-param(border-top-color, border-color);
+            @include ag-color-param(border-bottom-color, border-color);
         }
     }
 
@@ -76,7 +76,7 @@
         }
 
         .ag-selected .ag-side-button-button {
-            @include ag-css-var-override(border-right-color, selected-tab-underline-color);
+            @include ag-color-param(border-right-color, selected-tab-underline-color);
         }
     }
 
@@ -103,7 +103,7 @@
         }
 
         .ag-selected .ag-side-button-button {
-            @include ag-css-var-override(border-left-color, selected-tab-underline-color);
+            @include ag-color-param(border-left-color, selected-tab-underline-color);
         }
     }
     

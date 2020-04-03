@@ -15,7 +15,7 @@
     .ag-side-button-button {
         font-size: ag-param(font-size) - 1;
         font-weight: 600;
-        @include ag-css-var-override(color, header-foreground-color);
+        @include ag-color-param(color, header-foreground-color);
     }
 
     .ag-tab {
@@ -24,7 +24,7 @@
 
     .ag-tabs-header,
     .ag-column-drop-horizontal {
-        @include ag-css-var-override(background-color, subheader-background-color);
+        @include ag-color-param(background-color, subheader-background-color);
     }
 
     .ag-tabs-body {
@@ -41,12 +41,12 @@
     }
 
     .ag-side-button-button {
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
 
     .ag-column-drop-vertical {
         border-bottom: solid 1px;
-        @include ag-css-var-override(border-bottom-color, border-color);
+        @include ag-color-param(border-bottom-color, border-color);
         padding-top: ag-param(grid-size);
         
         &.ag-last-column-drop {
@@ -60,13 +60,13 @@
 
     .ag-set-filter-select-all {
         border-bottom: solid 1px;
-        @include ag-css-var-override(border-bottom-color, border-color);
+        @include ag-color-param(border-bottom-color, border-color);
     }
 
     .ag-column-drop-vertical-empty-message {
         font-size: ag-param(font-size) - 1;
         font-weight: 600;
-        @include ag-css-var-override(color, disabled-foreground-color);
+        @include ag-color-param(color, disabled-foreground-color);
 
         @include ag-theme-rtl((
             padding-left: ag-param(icon-size) + ag-param(grid-size) * 2,
@@ -76,17 +76,17 @@
 
     .ag-status-bar {
         border: solid 1px;
-        @include ag-css-var-override(border-color, border-color);
+        @include ag-color-param(border-color, border-color);
     }
 
     .ag-column-panel-column-select {
         border-top: solid 1px;
-        @include ag-css-var-override(border-top-color, border-color);
+        @include ag-color-param(border-top-color, border-color);
     }
 
     .ag-column-select, .ag-column-select-header {
         border-bottom: solid 1px;
-        @include ag-css-var-override(border-bottom-color, border-color);
+        @include ag-color-param(border-bottom-color, border-color);
     }
 
     .ag-column-select-header {
@@ -114,7 +114,7 @@
 
     %ag-text-input {
         background: transparent;
-        @include ag-css-var-override(color, foreground-color);
+        @include ag-color-param(color, foreground-color);
         font-family: inherit;
         font-size: inherit;
         height: ag-param(grid-size) * 5;
@@ -122,22 +122,22 @@
 
         border-width: 0;
         border-bottom: 2px solid;
-        @include ag-css-var-override(border-bottom-color, border-color);
+        @include ag-color-param(border-bottom-color, border-color);
 
         &:focus {
             border-bottom: 2px solid;
-            @include ag-css-var-override(border-bottom-color, material-primary-color);
+            @include ag-color-param(border-bottom-color, material-primary-color);
             outline: none;
             box-shadow: none;
         }
 
         &::placeholder {
-            @include ag-css-var-override(color, disabled-foreground-color);
+            @include ag-color-param(color, disabled-foreground-color);
         }
 
         &:disabled {
             border-bottom: 1px solid;
-            @include ag-css-var-override(border-bottom-color, border-color);
+            @include ag-color-param(border-bottom-color, border-color);
         }
     }
 
@@ -145,7 +145,7 @@
         appearance: none;
         background-color: transparent;
         border: 0;
-        @include ag-css-var-override(color, material-primary-color);
+        @include ag-color-param(color, material-primary-color);
         font-family: inherit;
         font-size: inherit;
         margin: 0;

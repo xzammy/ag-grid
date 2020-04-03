@@ -12,7 +12,7 @@
     .ag-status-bar,
     .ag-header-row {
         font-weight: 600;
-        @include ag-css-var-override(color, header-foreground-color);
+        @include ag-color-param(color, header-foreground-color);
     }
 
     %ag-text-input {
@@ -23,7 +23,7 @@
 
     .ag-column-drop-vertical-empty-message, .ag-status-bar {
         font-weight: 600;
-        @include ag-css-var-override(color, disabled-foreground-color);
+        @include ag-color-param(color, disabled-foreground-color);
     }
     .ag-dnd-ghost {
         font-weight: 600;
@@ -37,14 +37,14 @@
     }
 
     .ag-tab-selected {
-        @include ag-css-var-override(background-color, background-color);
-        @include ag-css-var-override(border-color, border-color);
+        @include ag-color-param(background-color, background-color);
+        @include ag-color-param(border-color, border-color);
         border-bottom-color: transparent;
     }
 
     .ag-tabs-header {
         border-bottom: 1px solid;
-        @include ag-css-var-override(border-bottom-color, border-color);
+        @include ag-color-param(border-bottom-color, border-color);
     }
 
     .ag-column-drop-cell {
@@ -52,7 +52,7 @@
     }
 
     .ag-column-drop-vertical-title {
-        @include ag-css-var-override(color, foreground-color);
+        @include ag-color-param(color, foreground-color);
     }
 
     .ag-column-drop-vertical-cell {
@@ -65,7 +65,7 @@
     }
     
     .ag-column-drop-vertical-icon {
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
     
     .ag-column-drop-vertical-empty-message {
@@ -80,7 +80,7 @@
     }
 
     .ag-column-drop-empty {
-        @include ag-css-var-override(color, disabled-foreground-color);
+        @include ag-color-param(color, disabled-foreground-color);
     }
 
     .ag-column-drop-horizontal-cell-text {
@@ -92,14 +92,14 @@
     }
 
     .ag-menu-header {
-        @include ag-css-var-override(background-color, header-background-color);
+        @include ag-color-param(background-color, header-background-color);
     }
 
     .ag-overlay-loading-center {
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(background-color, background-color);
         border: 1px solid;
-        @include ag-css-var-override(border-color, border-color);
-        @include ag-css-var-override(color, foreground-color);
+        @include ag-color-param(border-color, border-color);
+        @include ag-color-param(color, foreground-color);
         padding: ag-param(grid-size) * 4;
     }
 

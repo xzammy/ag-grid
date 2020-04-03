@@ -25,12 +25,12 @@
 
     input[class^='ag-'] {
         margin: 0;
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(background-color, background-color);
     }
 
     textarea[class^='ag-'],
     select[class^='ag-'] {
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(background-color, background-color);
     }
 
     input[class^='ag-']:not([type]),
@@ -49,13 +49,13 @@
         @if ag-param(input-border-color) {
             border-width: 1px;
             border-style: solid;
-            @include ag-css-var-override(border-color, input-border-color);
+            @include ag-color-param(border-color, input-border-color);
         }
     
         &:disabled {
-            @include ag-css-var-override(color, disabled-foreground-color);
+            @include ag-color-param(color, disabled-foreground-color);
             @if ag-param(input-disabled-background-color) {
-                @include ag-css-var-override(background-color, input-disabled-background-color);
+                @include ag-color-param(background-color, input-disabled-background-color);
             }
             @if ag-param(input-border-color) {
                 border-color: rgba(ag-param(input-border-color), 0.3);
@@ -65,7 +65,7 @@
         &:focus {
             outline: none;
             box-shadow: ag-param(input-focus-box-shadow);
-            @include ag-css-var-override(border-color, input-focus-border-color);
+            @include ag-color-param(border-color, input-focus-border-color);
         }
     }
 
@@ -89,7 +89,7 @@
     }
 
     .ag-drag-handle {
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
 
     ////////////////////////////////////////
@@ -100,7 +100,7 @@
     }
 
     .ag-select-list {
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(background-color, background-color);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -109,7 +109,7 @@
         display: flex;
         align-items: center;
         &.ag-active-item {
-            @include ag-css-var-override(background-color, row-hover-color);
+            @include ag-color-param(background-color, row-hover-color);
         }
     }
 
@@ -127,7 +127,7 @@
 
     .ag-select {
         .ag-picker-field-wrapper {
-            @include ag-css-var-override(background-color, background-color);
+            @include ag-color-param(background-color, background-color);
             min-height: ag-param(list-item-height);
             height: ag-param(list-item-height);
             cursor: default;
@@ -151,7 +151,7 @@
     // Rich Select
     ////////////////////////////////////////
     .ag-rich-select {
-        @include ag-css-var-override(background-color, control-panel-background-color);
+        @include ag-color-param(background-color, control-panel-background-color);
     }
 
     .ag-rich-select-list {
@@ -172,7 +172,7 @@
         height: ag-param(list-item-height);
 
         &:hover {
-            @include ag-css-var-override(background-color, row-hover-color);
+            @include ag-color-param(background-color, row-hover-color);
         }
     }
 
@@ -181,7 +181,7 @@
     }
 
     .ag-rich-select-row-selected {
-        @include ag-css-var-override(background-color, selected-row-background-color);
+        @include ag-color-param(background-color, selected-row-background-color);
     }
 
     ////////////////////////////////////////
@@ -195,7 +195,7 @@
     .ag-group-contracted {
         @include ag-theme-rtl(( margin-right: ag-param(cell-widget-spacing) ));
 
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
 
     .ag-cell-wrapper > *:not(.ag-cell-value):not(.ag-group-value) {
@@ -212,7 +212,7 @@
     
     .ag-group-title-bar-icon {
         cursor: pointer;
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
     
     .ag-group-child-count {
@@ -220,7 +220,7 @@
     }
 
     .ag-group-title-bar {
-        @include ag-css-var-override(background-color, subheader-background-color);
+        @include ag-color-param(background-color, subheader-background-color);
         padding: ag-param(grid-size);
     }
     
@@ -255,8 +255,8 @@
         height: 24px;
         border-radius: 12px;
         box-shadow: 0 0 2px;
-        @include ag-css-var-override(box-shadow, foreground-color);
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(box-shadow, foreground-color);
+        @include ag-color-param(background-color, background-color);
     }
     .ag-angle-select-child-circle {
         top: 4px;
@@ -266,12 +266,12 @@
         margin-left: -3px;
         margin-top: -4px;
         border-radius: 3px;
-        @include ag-css-var-override(background-color, secondary-foreground-color);
+        @include ag-color-param(background-color, secondary-foreground-color);
     }
 
     .ag-picker-field-wrapper {
         border: 1px solid;
-        @include ag-css-var-override(border-color, border-color);
+        @include ag-color-param(border-color, border-color);
         border-radius: 5px;
         &:focus {
             box-shadow: ag-param(input-focus-box-shadow);
@@ -279,8 +279,8 @@
     }
     
     .ag-picker-field-button {
-        @include ag-css-var-override(background-color, background-color);
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(background-color, background-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
 
     .ag-dialog.ag-color-dialog {
@@ -377,12 +377,12 @@
     }
 
     .ag-panel {
-        @include ag-css-var-override(background-color, background-color);
+        @include ag-color-param(background-color, background-color);
     }
 
     .ag-panel-title-bar {
-        @include ag-css-var-override(background-color, header-background-color);
-        @include ag-css-var-override(color, header-foreground-color);
+        @include ag-color-param(background-color, header-background-color);
+        @include ag-color-param(color, header-foreground-color);
         height: ag-param(header-height);
         padding: ag-param(grid-size) ag-param(cell-horizontal-padding);
         @include ag-border(primary, bottom);
@@ -396,8 +396,8 @@
     // Tooltip
     ////////////////////////////////////////
     .ag-tooltip {
-        @include ag-css-var-override(background-color, header-background-color);
-        @include ag-css-var-override(color, foreground-color);
+        @include ag-color-param(background-color, header-background-color);
+        @include ag-color-param(color, foreground-color);
         padding: ag-param(grid-size);
         @include ag-border(primary);
         border-radius: ag-param(card-radius);
@@ -442,7 +442,7 @@
 
     .ag-column-select-column-readonly,
     .ag-column-select-column-group-readonly {
-        @include ag-css-var-override(color, disabled-foreground-color);
+        @include ag-color-param(color, disabled-foreground-color);
         pointer-events: none;
     }
 
@@ -501,7 +501,7 @@
         height: 100%;
     }
 
-    @include ag-css-var-override(background-color, checkbox-background-color);
+    @include ag-color-param(background-color, checkbox-background-color);
     border-radius: ag-param(checkbox-border-radius);
     display: inline-block;
     vertical-align: middle;
@@ -527,7 +527,7 @@
 
     &::after {
         content: ag-icon-char(checkbox-unchecked);
-        @include ag-css-var-override(color, checkbox-unchecked-color);
+        @include ag-color-param(color, checkbox-unchecked-color);
         position: absolute;
         top: 0;
         left: 0;
@@ -536,7 +536,7 @@
 
     &.ag-checked::after {
         content: ag-icon-char(checkbox-checked);
-        @include ag-css-var-override(color, checkbox-checked-color);
+        @include ag-color-param(color, checkbox-checked-color);
         position: absolute;
         top: 0;
         left: 0;
@@ -545,7 +545,7 @@
 
     &.ag-indeterminate::after {
         content: ag-icon-char(checkbox-indeterminate);
-        @include ag-css-var-override(color, checkbox-indeterminate-color);
+        @include ag-color-param(color, checkbox-indeterminate-color);
         position: absolute;
         top: 0;
         left: 0;
@@ -560,7 +560,7 @@
 
     &::after {
         content: ag-icon-char(radio-button-off);
-        @include ag-css-var-override(color, checkbox-unchecked-color);
+        @include ag-color-param(color, checkbox-unchecked-color);
         position: absolute;
         top: 0;
         left: 0;
@@ -569,7 +569,7 @@
 
     &.ag-checked::after {
         content: ag-icon-char(radio-button-on);
-        @include ag-css-var-override(color, checkbox-checked-color);
+        @include ag-color-param(color, checkbox-checked-color);
         position: absolute;
         top: 0;
         left: 0;
@@ -582,12 +582,12 @@
     box-sizing: border-box;
     width: ag-param(toggle-button-width);
     height: ag-param(toggle-button-height);
-    @include ag-css-var-override(background-color, toggle-button-off-background-color);
+    @include ag-color-param(background-color, toggle-button-off-background-color);
     border-radius: ag-param(toggle-button-height) / 2;
     position: relative;
     flex: none;
     border: $border-width solid;
-    @include ag-css-var-override(border-color, toggle-button-off-border-color);
+    @include ag-color-param(border-color, toggle-button-off-border-color);
 
     input {
         opacity: 0;
@@ -605,8 +605,8 @@
     }
 
     &.ag-checked {
-        @include ag-css-var-override(background-color, toggle-button-on-background-color);
-        @include ag-css-var-override(border-color, toggle-button-on-border-color);
+        @include ag-color-param(background-color, toggle-button-on-background-color);
+        @include ag-color-param(border-color, toggle-button-on-border-color);
     }
 
     &::before {
@@ -618,16 +618,16 @@
         box-sizing: border-box;
         height: ag-param(toggle-button-height);
         width: ag-param(toggle-button-height);
-        @include ag-css-var-override(background-color, toggle-button-switch-background-color);
+        @include ag-color-param(background-color, toggle-button-switch-background-color);
         border-radius: ag-param(toggle-button-height) / 2;
         transition: left 100ms;
         border: $border-width solid;
-        @include ag-css-var-override(border-color, toggle-button-switch-border-color);
+        @include ag-color-param(border-color, toggle-button-switch-border-color);
     }
 
     &.ag-checked::before {
         left: calc(100% - #{ag-param(toggle-button-height)} );
-        @include ag-css-var-override(border-color, toggle-button-on-border-color);
+        @include ag-color-param(border-color, toggle-button-on-border-color);
     }
 }
 
@@ -640,7 +640,7 @@
         padding: 0;
         width: 100%;
         height: 3px;
-        @include ag-css-var-override(background-color, border-color);
+        @include ag-color-param(background-color, border-color);
         border-radius: ag-param(border-radius);
         border-radius: ag-param(checkbox-border-radius);
     }
@@ -673,9 +673,9 @@
         -webkit-appearance: none;
         width: ag-param(icon-size);
         height: ag-param(icon-size);
-        @include ag-css-var-override(background, background-color);
+        @include ag-color-param(background, background-color);
         border: 1px solid;
-        @include ag-css-var-override(border-color, checkbox-unchecked-color);
+        @include ag-color-param(border-color, checkbox-unchecked-color);
         border-radius: ag-param(icon-size);
     }
 }
@@ -686,7 +686,7 @@
         @include ag-focus-range-thumb
     }
     @else {
-        @include ag-css-var-override(border-color, checkbox-checked-color);
+        @include ag-color-param(border-color, checkbox-checked-color);
     }
 }
 
@@ -697,7 +697,7 @@
     @else {
         @if ag-param(input-focus-border-color) {
             box-shadow: ag-param(input-focus-box-shadow), inset 0 0 5px;
-            @include ag-css-var-override(box-shadow, input-focus-border-color);
+            @include ag-color-param(box-shadow, input-focus-border-color);
         }
     }
 }

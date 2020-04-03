@@ -15,18 +15,18 @@
     }
     
     .ag-row-selected {
-        @include ag-css-var-override(background-color, selected-row-background-color);
+        @include ag-color-param(background-color, selected-row-background-color);
     }
 
     // we do not want to color the range color when the cell is also focused
     .ag-cell-range-selected:not(.ag-cell-focus) {
-        @include ag-css-var-override(background-color, range-selection-background-color);
+        @include ag-color-param(background-color, range-selection-background-color);
         &.ag-cell-range-chart {
-            @include ag-css-var-override(background-color, range-selection-chart-background-color);
+            @include ag-color-param(background-color, range-selection-chart-background-color);
         }
 
         &.ag-cell-range-chart.ag-cell-range-chart-category {
-            @include ag-css-var-override(background-color, range-selection-chart-category-background-color);
+            @include ag-color-param(background-color, range-selection-chart-category-background-color);
         }
     }
 
@@ -48,16 +48,16 @@
 
     .ag-cell.ag-cell-range-selected:not(.ag-cell-range-single-cell) {
         &.ag-cell-range-top {
-            @include ag-css-var-override(border-top-color, range-selection-border-color);
+            @include ag-color-param(border-top-color, range-selection-border-color);
         }
         &.ag-cell-range-right {
-            @include ag-css-var-override(border-right-color, range-selection-border-color);
+            @include ag-color-param(border-right-color, range-selection-border-color);
         }
         &.ag-cell-range-bottom {
-            @include ag-css-var-override(border-bottom-color, range-selection-border-color);
+            @include ag-color-param(border-bottom-color, range-selection-border-color);
         }
         &.ag-cell-range-left {
-            @include ag-css-var-override(border-left-color, range-selection-border-color);
+            @include ag-color-param(border-left-color, range-selection-border-color);
         }
     }
 
@@ -67,7 +67,7 @@
         .ag-has-focus .ag-cell-focus.ag-cell-range-single-cell,
         .ag-cell-range-single-cell.ag-cell-range-handle {
             border: 1px solid;
-            @include ag-css-var-override(border-color, range-selection-border-color);
+            @include ag-color-param(border-color, range-selection-border-color);
             outline: initial;
         }
     }
@@ -75,7 +75,7 @@
     .ag-cell.ag-selection-fill-top,
     .ag-cell.ag-selection-fill-top.ag-cell-range-selected {
         border-top: 1px dashed;
-        @include ag-css-var-override(border-top-color, range-selection-border-color);
+        @include ag-color-param(border-top-color, range-selection-border-color);
     }
 
     .ag-cell.ag-selection-fill-right,
@@ -86,7 +86,7 @@
     .ag-cell.ag-selection-fill-bottom,
     .ag-cell.ag-selection-fill-bottom.ag-cell-range-selected {
         border-bottom: 1px dashed;
-        @include ag-css-var-override(border-bottom-color, range-selection-border-color);
+        @include ag-color-param(border-bottom-color, range-selection-border-color);
     }
 
     .ag-cell.ag-selection-fill-left,
@@ -100,7 +100,7 @@
         height: 6px;
         bottom: -1px;
         @include ag-theme-rtl((right: -1px));
-        @include ag-css-var-override(background-color, range-selection-border-color);
+        @include ag-color-param(background-color, range-selection-border-color);
     }
 
     .ag-fill-handle {
@@ -114,6 +114,6 @@
     }
 
     .ag-cell-inline-editing {
-        @include ag-css-var-override(border-color, input-focus-border-color, $important: true);
+        @include ag-color-param(border-color, input-focus-border-color, $important: true);
     }
 }

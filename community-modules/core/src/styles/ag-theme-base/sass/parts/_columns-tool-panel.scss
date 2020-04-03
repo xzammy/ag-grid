@@ -27,6 +27,6 @@
 
     .ag-column-group-icons,
     .ag-column-select-header-icon {
-        @include ag-css-var-override(color, secondary-foreground-color);
+        @include ag-color-param(color, secondary-foreground-color);
     }
 }
