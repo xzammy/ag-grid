@@ -181,18 +181,6 @@
 
 }
 
-@mixin ag-color-self-overlay($color, $times) {
-    $solidity: 1 - opacity($color);
-    $output-solidity: 1;
-    @if $times > 0 {
-        @for $i from 1 through $times {
-            $output-solidity: $output-solidity * $solidity;
-        }
-    }
-
-    background-color: rgba($color, 1 - $output-solidity);
-}
-
 $-ag-included-themes: () !default;
 
 @mixin ag-include-theme-once-only() {

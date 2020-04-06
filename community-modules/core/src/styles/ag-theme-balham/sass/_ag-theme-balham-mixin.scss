@@ -118,9 +118,7 @@
     }
     
     .ag-group-toolbar {
-        @if ag-param(subheader-background-color) {
-            background-color: rgba(ag-param(subheader-background-color), 0.5);
-        }
+        @include ag-color-property(background-color, subheader-toolbar-background-color);
     }
 
     .ag-chart-tab {

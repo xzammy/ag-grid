@@ -112,14 +112,13 @@
         border: 1px solid;
         @include ag-color-property(border-color, alpine-active-color);
         @include ag-color-property(color, alpine-active-color);
-        @include ag-color-property(background, background-color);
+        @include ag-color-property(background-color, background-color);
         font-weight: 600;
         padding: ag-param(grid-size) ag-param(grid-size) * 2;
     
         &:hover {
             @include ag-color-property(border-color, alpine-active-color);
-            @include ag-color-property();
-            background-color: rgba(ag-param(alpine-active-color), 0.1);
+            @include ag-color-property(background-color, row-hover-color);
         }
     
         &:active {
@@ -157,7 +156,8 @@
     }
 
     .ag-column-drop-empty-message {
-        color: rgba(ag-param(foreground-color), 0.75);
+        @include ag-color-property(color, foreground-color);
+        opacity: 0.75;
     }
 
     .ag-status-bar {
@@ -193,7 +193,8 @@
     .ag-group-title-bar-icon,
     .ag-column-select-header-icon,
     .ag-floating-filter-button-button,
-    .ag-filter-toolpanel-expand {
+    .ag-filter-toolpanel-expand,
+    .ag-chart-menu-icon {
         &:hover {
             @include ag-color-property(color, alpine-active-color);
         }

@@ -14,10 +14,7 @@
         cursor: pointer;
         border-radius: ag-param(card-radius);
         @include ag-color-property(color, secondary-foreground-color);
-    }
-
-    .ag-chart-menu-icon:hover {
-        background-color: darken(ag-param(background-color), 10%);
+        opacity: 1;
     }
 
     .ag-chart-mini-thumbnail {
