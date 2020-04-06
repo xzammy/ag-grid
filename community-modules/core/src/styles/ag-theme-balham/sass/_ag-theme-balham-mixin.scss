@@ -2,7 +2,7 @@
 @import "./ag-theme-balham-default-params";
 
 @mixin ag-theme-balham($params: ()) {
-    $ag-require-colors-to-have-css-var-override: true !global;
+    @include ag-allow-color-param-access-with-ag-param(false);
     
     $params: ag-process-theme-variables($params, $ag-theme-balham-default-params);
     @include ag-theme-base($params);
@@ -12,7 +12,7 @@
     .ag-status-bar,
     .ag-header-row {
         font-weight: 600;
-        @include ag-color-param(color, header-foreground-color);
+        @include ag-color-property(color, header-foreground-color);
     }
 
     %ag-text-input {
@@ -23,7 +23,7 @@
 
     .ag-column-drop-vertical-empty-message, .ag-status-bar {
         font-weight: 600;
-        @include ag-color-param(color, disabled-foreground-color);
+        @include ag-color-property(color, disabled-foreground-color);
     }
     .ag-dnd-ghost {
         font-weight: 600;
@@ -37,14 +37,14 @@
     }
 
     .ag-tab-selected {
-        @include ag-color-param(background-color, background-color);
-        @include ag-color-param(border-color, border-color);
+        @include ag-color-property(background-color, background-color);
+        @include ag-color-property(border-color, border-color);
         border-bottom-color: transparent;
     }
 
     .ag-tabs-header {
         border-bottom: 1px solid;
-        @include ag-color-param(border-bottom-color, border-color);
+        @include ag-color-property(border-bottom-color, border-color);
     }
 
     .ag-column-drop-cell {
@@ -52,7 +52,7 @@
     }
 
     .ag-column-drop-vertical-title {
-        @include ag-color-param(color, foreground-color);
+        @include ag-color-property(color, foreground-color);
     }
 
     .ag-column-drop-vertical-cell {
@@ -65,7 +65,7 @@
     }
     
     .ag-column-drop-vertical-icon {
-        @include ag-color-param(color, secondary-foreground-color);
+        @include ag-color-property(color, secondary-foreground-color);
     }
     
     .ag-column-drop-vertical-empty-message {
@@ -80,7 +80,7 @@
     }
 
     .ag-column-drop-empty {
-        @include ag-color-param(color, disabled-foreground-color);
+        @include ag-color-property(color, disabled-foreground-color);
     }
 
     .ag-column-drop-horizontal-cell-text {
@@ -92,14 +92,14 @@
     }
 
     .ag-menu-header {
-        @include ag-color-param(background-color, header-background-color);
+        @include ag-color-property(background-color, header-background-color);
     }
 
     .ag-overlay-loading-center {
-        @include ag-color-param(background-color, background-color);
+        @include ag-color-property(background-color, background-color);
         border: 1px solid;
-        @include ag-color-param(border-color, border-color);
-        @include ag-color-param(color, foreground-color);
+        @include ag-color-property(border-color, border-color);
+        @include ag-color-property(color, foreground-color);
         padding: ag-param(grid-size) * 4;
     }
 
@@ -130,5 +130,5 @@
     .ag-charts-format-sub-level-group-item {
         margin-bottom: ag-param(grid-size) * 1.5;
     }
-    $ag-require-colors-to-have-css-var-override: false !global;
+    @include ag-allow-color-param-access-with-ag-param(true);
 }

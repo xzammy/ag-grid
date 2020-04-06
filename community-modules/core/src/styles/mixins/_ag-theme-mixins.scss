@@ -20,7 +20,7 @@
                 }
                 @else {
                     border-#{$side}: $style $width;
-                    @include ag-color-param(border-#{$side}-color, $color-param);
+                    @include ag-color-property(border-#{$side}-color, $color-param);
                 }
             }
         }
@@ -30,7 +30,7 @@
             }
             @else {
                 border: $style $width;
-                @include ag-color-param(border-color, $color-param);
+                @include ag-color-property(border-color, $color-param);
             }
         }
         @if $radius {
@@ -63,7 +63,7 @@
 }
 
 @function ag-icon-char($name) {
-    $icon-map: ag-param-unchecked(icons-font-codes);
+    $icon-map: -ag-param-unchecked(icons-font-codes);
     @if type-of($icon-map) != map {
         @error "Expected icons-font-codes param to be a map, but got #{type-of($icon-map)} (#{inspect($icon-map)})";
     }
@@ -76,7 +76,7 @@
 @mixin ag-card() {
     @include ag-border(primary);
     
-    @include ag-color-param(background, background-color);
+    @include ag-color-property(background, background-color);
     border-radius: ag-param(card-radius);
     box-shadow: ag-param(card-shadow);
     padding: ag-param(grid-size);
@@ -239,7 +239,7 @@ $-ag-included-themes: () !default;
             @each $property, $value in $rules {
                 #{$property}: $value;
                 @if $color-param {
-                    @include ag-color-param(#{$property}-color, $color-param);
+                    @include ag-color-property(#{$property}-color, $color-param);
                 }
             }
         }
@@ -247,7 +247,7 @@ $-ag-included-themes: () !default;
             @each $property, $value in ag-get-rtl-rules($rules) {
                 #{$property}: $value;
                 @if $color-param {
-                    @include ag-color-param(#{$property}-color, $color-param);
+                    @include ag-color-property(#{$property}-color, $color-param);
                 }
             }
         }

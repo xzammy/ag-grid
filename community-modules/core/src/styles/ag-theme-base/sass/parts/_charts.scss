@@ -1,7 +1,7 @@
 @mixin ag-theme-base-part-charts {
     .ag-chart-menu {
         border-radius: ag-param(card-radius);
-        @include ag-color-param(background, background-color);
+        @include ag-color-property(background, background-color);
     }
 
     .ag-chart-menu-icon {
@@ -13,7 +13,7 @@
         margin: 2px 0;
         cursor: pointer;
         border-radius: ag-param(card-radius);
-        @include ag-color-param(color, secondary-foreground-color);
+        @include ag-color-property(color, secondary-foreground-color);
     }
 
     .ag-chart-menu-icon:hover {
@@ -22,7 +22,7 @@
 
     .ag-chart-mini-thumbnail {
         border: 1px solid;
-        @include ag-color-param(border-color, secondary-border-color);
+        @include ag-color-property(border-color, secondary-border-color);
         border-radius: 5px;
         margin: 5px;
 
@@ -42,18 +42,18 @@
         }
 
         &.ag-selected {
-            @include ag-color-param(border-color, minichart-selected-chart-color);
+            @include ag-color-property(border-color, minichart-selected-chart-color);
         }
     }
 
     .ag-chart-settings-card-item {
-        @include ag-color-param(background, foreground-color);
+        @include ag-color-property(background, foreground-color);
         width: 8px;
         height: 8px;
         border-radius: 4px;
 
         &.ag-selected {
-            @include ag-color-param(background-color, minichart-selected-page-color);
+            @include ag-color-property(background-color, minichart-selected-page-color);
         }
     }
 
@@ -101,6 +101,6 @@
     .ag-chart-menu-panel {
         @include ag-theme-rtl((border-left: solid 1px), $color-param: border-color);
 
-        @include ag-color-param(background-color, control-panel-background-color);
+        @include ag-color-property(background-color, control-panel-background-color);
     }
 }

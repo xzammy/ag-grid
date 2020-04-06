@@ -3,8 +3,8 @@
     
     .ag-paging-panel {
         border-top: 1px solid;
-        @include ag-color-param(border-top-color, border-color);
-        @include ag-color-param(color, secondary-foreground-color);
+        @include ag-color-property(border-top-color, border-color);
+        @include ag-color-property(color, secondary-foreground-color);
         height: ag-param(header-height);
         // padding: 0 ag-param(cell-horizontal-padding);
 
@@ -28,7 +28,7 @@
     }
 
     .ag-paging-button-wrapper.ag-disabled {
-        @include ag-color-param(color, disabled-foreground-color);
+        @include ag-color-property(color, disabled-foreground-color);
         cursor: default;
     }
 
@@ -38,14 +38,14 @@
 
     .ag-status-bar {
         @include ag-border(primary, top);
-        @include ag-color-param(color, disabled-foreground-color);
+        @include ag-color-property(color, disabled-foreground-color);
         padding-right: ag-param(grid-size) * 4;
         padding-left: ag-param(grid-size) * 4;
         line-height: 1.5;
     }
 
     .ag-status-name-value-value {
-        @include ag-color-param(color, foreground-color);
+        @include ag-color-property(color, foreground-color);
     }
 
     .ag-status-bar-center {

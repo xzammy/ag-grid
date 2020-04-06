@@ -63,17 +63,14 @@ $-ag-params: null !default;
     $-ag-params: $params !global;
 }
 
-$-ag-is-inside-ag-color-param: false;
-$ag-require-colors-to-have-css-var-override: false !global;
-
 // Use a parameter in SCSS, e.g. `color: ag-param(foreground-color)`
-// Note, it is not possible to use this for color params, use the ag-color-param mixin instead
+// Note, it is not possible to use this for color params, use the ag-color-property mixin instead
 @function ag-param($name) {
-    @if $ag-require-colors-to-have-css-var-override and str-index($name, "-color") and not $-ag-is-inside-ag-color-param {
+    @if $-ag-allow-color-param-access-with-ag-param != true and str-index($name, "-color") and not $-ag-is-inside-ag-color-property {
         // uncomment during development to catch use of 
-        @error "Illegal call to ag-param(#{$name}) - all colour params must be accessed through the ag-color-param mixin.";
+        @error "Illegal call to ag-param(#{$name}) - all colour params must be accessed through the ag-color-property mixin.";
     }
-    $resolved: ag-param-unchecked($name);
+    $resolved: -ag-param-unchecked($name);
     @if str-index(inspect($resolved), "ag-derived(") != null {
         @error "#{$name} param contains a ag-derived() as a CSS function call expression. This means that you have tried to use ag-derived() before the function is defined - you need to include the file that defines it.";
     }
@@ -88,8 +85,14 @@ $ag-require-colors-to-have-css-var-override: false !global;
     @return $resolved;
 }
 
-@mixin ag-color-param($property, $param-name, $important: false) {
-    $-is-inside-ag-color-param: true !global;
+// Return true if a param has a value other than null
+@function ag-param-is-set($name) {
+    @return -ag-param-unchecked($name) != null;
+}
+
+$-ag-is-inside-ag-color-property: false;
+@mixin ag-color-property($property, $param-name, $important: false) {
+    $-ag-is-inside-ag-color-property: true !global;
     $value: ag-param($param-name);
     $important: if($important, !important, null);
     @if $value != null {
@@ -98,23 +101,12 @@ $ag-require-colors-to-have-css-var-override: false !global;
             #{$property}: var(--ag-#{$param-name}, #{$value}) $important;
         }
     }
-    $-is-inside-ag-color-param: false !global;
+    $-ag-is-inside-ag-color-property: false !global;
 }
 
-
-// Like ag-param, but allow map values
-@function ag-param-unchecked($name) {
-    @if $-ag-params == null {
-        @error "ag-param() called before ag-register-params";
-    }
-    @if str-index($name, "--internal-") == 1 {
-        // internal vars are returned without ag-derived resolution or validation that the var exists
-        @return map-get($-ag-params, $name);
-    }
-    @if not map-has-key($-ag-params, $name) {
-        @error "ag-param(#{$name}): no such parameter";
-    }
-    @return -ag-resolve-param-name($-ag-params, $name);
+$-ag-allow-color-param-access-with-ag-param: true !global;
+@mixin ag-allow-color-param-access-with-ag-param($allow) {
+    $-ag-allow-color-param-access-with-ag-param: $allow !global;
 }
 
 // Merge params supplied to a theme with the defaults, optionally validate, and register
@@ -143,22 +135,24 @@ $ag-require-colors-to-have-css-var-override: false !global;
     @return $params;
 }
 
-$ag-not-defined: "--ag-not-defined" !default;
-
-// used in legacy var importers, see e.g. ag-theme-base-legacy-vars.scss for example
-@function ag-merge-legacy-var($params, $param-name, $value-or-not-defined, $allowed) {
-    @if index($allowed, $param-name) == null {
-        @error "Invalid param to merge: #{$param-name}";
-    }
-    @if $value-or-not-defined == $ag-not-defined {
-        @return $params;
-    }
-    @return map-merge($params, ($param-name: $value-or-not-defined));
-}
-
 //
 // PRIVATE IMPLEMENTATION FUNCTIONS
 //
+
+// Get a parameter, with no checks other than that the parameter exists
+@function -ag-param-unchecked($name) {
+    @if $-ag-params == null {
+        @error "ag-param() called before ag-register-params";
+    }
+    @if str-index($name, "--internal-") == 1 {
+        // internal vars are returned without ag-derived resolution or validation that the var exists
+        @return map-get($-ag-params, $name);
+    }
+    @if not map-has-key($-ag-params, $name) {
+        @error "ag-param(#{$name}): no such parameter";
+    }
+    @return -ag-resolve-param-name($-ag-params, $name);
+}
 
 // Return true if a value is a record returned by ag-derived()
 @function -is-ag-derived($value) {
