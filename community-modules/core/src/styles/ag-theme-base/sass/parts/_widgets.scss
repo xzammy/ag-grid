@@ -695,6 +695,7 @@
     @else {
         @if ag-param(input-focus-border-color) {
             box-shadow: ag-param(input-focus-box-shadow), inset 0 0 5px;
+            // TODO color this is wrong... Very wrong???
             @include ag-color-property(box-shadow, input-focus-border-color);
         }
     }
