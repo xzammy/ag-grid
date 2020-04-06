@@ -75,7 +75,7 @@
         @include ag-color-property(background-color, background-color);
         @include ag-color-property(color, data-color);
         
-        @if ag-param(row-border-color) and ag-param(borders-critical) {
+        @if ag-param-is-set(row-border-color) and ag-param(borders-critical) {
             // NOTE: we define border-width and border-color at .ag-row level and only set
             // border-style inside nested pseudoclass selectors, to allow derived themes
             // to override border-width on .ag-row
@@ -112,10 +112,8 @@
         bottom: 0px;
     }
 
-    @if ag-param(odd-row-background-color) {
-        .ag-row-odd {
-            @include ag-color-property(background-color, odd-row-background-color);
-        }
+    .ag-row-odd {
+        @include ag-color-property(background-color, odd-row-background-color);
     }
 
     // NOTE: these don't need an RTL version because the "left spacer" is always the one visually on the left

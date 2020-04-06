@@ -54,15 +54,6 @@
     @return $derived;
 }
 
-// global map of params used by ag-param()
-$-ag-params: null !default;
-
-// Register a params map globally so that it can be used by ag-param($name)
-@mixin ag-register-params($params) {
-    $params: -ag-require-type($params, "map", "$params argument");
-    $-ag-params: $params !global;
-}
-
 // Use a parameter in SCSS, e.g. `color: ag-param(foreground-color)`
 // Note, it is not possible to use this for color params, use the ag-color-property mixin instead
 @function ag-param($name) {
@@ -90,15 +81,37 @@ $-ag-params: null !default;
     @return -ag-param-unchecked($name) != null;
 }
 
+// Return true if two params have different values
+@function ag-params-are-different($name-a, $name-b) {
+    @return -ag-param-unchecked($name-a) != -ag-param-unchecked($name-b);
+}
+
 $-ag-is-inside-ag-color-property: false;
-@mixin ag-color-property($property, $param-name, $important: false) {
+// A mixin to apply a color to an element. This sets the value of a CSS property using a
+// theme parameter, and also emits CSS that allows the value to be overridden at runtime
+// using CSS variables. If the mixin is called like this:
+//
+//   @include ag-color-property(background-color, header-background-color)
+//
+// ... and the header-background-color parameter is set to `red` then the emitted CSS will
+// be something like:
+//
+//   background-color: red;
+//   background-color: var(--ag-header-background-color, red);
+//
+// The optional $important argument can be used to add a CSS !important directive
+//
+// NOTE: If $value is null, no CSS will be emitted. This means that for optional parameters
+// that default to null, you must set a value in order for it to be possible to override that
+// value at runtime.
+@mixin ag-color-property($property, $param, $important: false) {
     $-ag-is-inside-ag-color-property: true !global;
-    $value: ag-param($param-name);
+    $value: ag-param($param);
     $important: if($important, !important, null);
     @if $value != null {
         #{$property}: $value $important;
         @if not ag-param(suppress-color-css-var-overrides) {
-            #{$property}: var(--ag-#{$param-name}, #{$value}) $important;
+            #{$property}: var(--ag-#{$param}, #{$value}) $important;
         }
     }
     $-ag-is-inside-ag-color-property: false !global;
@@ -133,6 +146,16 @@ $-ag-allow-color-param-access-with-ag-param: true !global;
     $params: map-merge($params, ("--ag-already-validated": true));
     $-ag-params: $params !global;
     @return $params;
+}
+
+// global map of params used by ag-param()
+$-ag-params: null !default;
+
+// Register a params map globally so that it can be used by ag-param($name)
+// NOTE: Custom themes should NOT use this, use ag-process-theme-variables() instead
+@mixin ag-register-params($params) {
+    $params: -ag-require-type($params, "map", "$params argument");
+    $-ag-params: $params !global;
 }
 
 //

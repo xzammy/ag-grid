@@ -63,7 +63,7 @@
     .ag-header-cell:not(.ag-column-resizing) + .ag-header-cell,
     .ag-header-group-cell:first-of-type,
     .ag-header-cell:first-of-type {
-        @if (ag-param(header-cell-hover-background-color) and ag-param(header-background-color) != ag-param(header-cell-hover-background-color)) {
+        @if (ag-params-are-different(header-cell-hover-background-color, header-background-color)) {
             &:hover,
             &.ag-column-resizing {
                 @include ag-color-property(background-color, header-cell-hover-background-color);
