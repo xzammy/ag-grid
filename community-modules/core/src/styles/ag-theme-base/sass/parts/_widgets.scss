@@ -250,8 +250,8 @@
         width: 24px;
         height: 24px;
         border-radius: 12px;
-        box-shadow: 0 0 2px;
-        @include ag-color-property(box-shadow, foreground-color);
+        border: solid 1px;
+        @include ag-color-property(border-color, border-color);
         @include ag-color-property(background-color, background-color);
     }
     .ag-angle-select-child-circle {

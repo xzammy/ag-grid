@@ -62,7 +62,6 @@
 // Note, it is not possible to use this for color params, use the ag-color-property mixin instead
 @function ag-param($name) {
     @if $-ag-allow-color-param-access-with-ag-param != true and str-index($name, "-color") and not $-ag-is-inside-ag-color-property {
-        // uncomment during development to catch use of 
         @error "Illegal call to ag-param(#{$name}) - all colour params must be accessed through the ag-color-property mixin.";
     }
     $resolved: -ag-param-unchecked($name);
