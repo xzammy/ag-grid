@@ -6,7 +6,8 @@ import { GroupedCategoryAxis } from "./axis/groupedCategoryAxis";
 import { ChartAxisPosition } from "./chartAxis";
 import { Series } from "./series/series";
 import { BBox } from "../scene/bbox";
-// import { ClipRect } from "../scene/clipRect";
+import { ClipRect } from "../scene/clipRect";
+import { RangeSelector } from "./shapes/rangeSelector";
 
 export class CartesianChart extends Chart {
     static className = 'CartesianChart';
@@ -22,12 +23,17 @@ export class CartesianChart extends Chart {
         const root = this.scene.root!;
         root.append(this._seriesRoot);
         root.append(this.legend.group);
+        root.append(this.rangeSelector);
+
+        this.rangeSelector.height = 30;
     }
 
-    private _seriesRoot = new Group();
-    get seriesRoot(): Group {
+    private _seriesRoot = new ClipRect();
+    get seriesRoot(): ClipRect {
         return this._seriesRoot;
     }
+
+    readonly rangeSelector = new RangeSelector();
 
     performLayout(): void {
         if (this.dataPending) {
@@ -36,7 +42,8 @@ export class CartesianChart extends Chart {
 
         this.scene.root.visible = true;
 
-        const { width, height, axes, legend } = this;
+        const { width, height, axes, legend, rangeSelector } = this;
+        const rangeSelectorMargin = 10;
 
         const shrinkRect = new BBox(0, 0, width, height);
 
@@ -80,6 +87,12 @@ export class CartesianChart extends Chart {
         shrinkRect.y += padding.top + captionAutoPadding;
         shrinkRect.height -= padding.top + captionAutoPadding + padding.bottom;
 
+        if (this.rangeSelector.visible) {
+            shrinkRect.height -= rangeSelector.height + rangeSelectorMargin;
+        }
+
+        let bottomAxesHeight = 0;
+
         axes.forEach(axis => {
             axis.group.visible = true;
             const axisThickness = Math.floor(axis.computeBBox().width);
@@ -97,6 +110,7 @@ export class CartesianChart extends Chart {
                     break;
                 case ChartAxisPosition.Bottom:
                     shrinkRect.height -= axisThickness;
+                    bottomAxesHeight += axisThickness;
                     axis.translation.y = Math.floor(shrinkRect.y + shrinkRect.height + 1);
                     break;
                 case ChartAxisPosition.Left:
@@ -149,11 +163,17 @@ export class CartesianChart extends Chart {
         });
 
         // When seriesRoot is a ClipRect:
-        // const { seriesRoot } = this;
-        // seriesRoot.x = shrinkRect.x;
-        // seriesRoot.y = shrinkRect.y;
-        // seriesRoot.width = shrinkRect.width;
-        // seriesRoot.height = shrinkRect.height;
+        const { seriesRoot } = this;
+        seriesRoot.x = shrinkRect.x;
+        seriesRoot.y = shrinkRect.y;
+        seriesRoot.width = shrinkRect.width;
+        seriesRoot.height = shrinkRect.height;
+
+        if (this.rangeSelector.visible) {
+            rangeSelector.x = shrinkRect.x;
+            rangeSelector.y = shrinkRect.y + shrinkRect.height + bottomAxesHeight + rangeSelectorMargin;
+            rangeSelector.width = shrinkRect.width;
+        }
 
         this.axes.forEach(axis => axis.update());
     }
@@ -166,6 +186,21 @@ export class CartesianChart extends Chart {
     protected freeSeries(series: Series) {
         super.freeSeries(series);
         series.removeEventListener('dataProcessed', this.updateAxes, this);
+    }
+
+    protected onMouseMove(event: MouseEvent) {
+        super.onMouseMove(event);
+
+        const { minHandle, maxHandle } = this.rangeSelector;
+        const { style } = this.element;
+
+        if (minHandle.isPointInNode(event.offsetX, event.offsetY)) {
+            style.cursor = 'ew-resize';
+        } else if (maxHandle.isPointInNode(event.offsetX, event.offsetY)) {
+            style.cursor = 'ew-resize';
+        } else {
+            style.cursor = 'default';
+        }
     }
 
     updateAxes() {

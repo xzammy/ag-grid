@@ -691,15 +691,15 @@ export abstract class Chart extends Observable {
     }
 
     private setupDomListeners(chartElement: HTMLCanvasElement) {
-        chartElement.addEventListener('mousemove', this.onMouseMove);
-        chartElement.addEventListener('mouseout', this.onMouseOut);
-        chartElement.addEventListener('click', this.onClick);
+        chartElement.addEventListener('mousemove', this._onMouseMove);
+        chartElement.addEventListener('mouseout', this._onMouseOut);
+        chartElement.addEventListener('click', this._onClick);
     }
 
     private cleanupDomListeners(chartElement: HTMLCanvasElement) {
-        chartElement.removeEventListener('mousemove', this.onMouseMove);
-        chartElement.removeEventListener('mouseout', this.onMouseMove);
-        chartElement.removeEventListener('click', this.onClick);
+        chartElement.removeEventListener('mousemove', this._onMouseMove);
+        chartElement.removeEventListener('mouseout', this._onMouseOut);
+        chartElement.removeEventListener('click', this._onClick);
     }
 
     // Should be available after first layout.
@@ -771,7 +771,11 @@ export abstract class Chart extends Observable {
         }
     }
 
-    private readonly onMouseMove = (event: MouseEvent) => {
+    private _onMouseMove = this.onMouseMove.bind(this);
+    private _onMouseOut = this.onMouseOut.bind(this);
+    private _onClick = this.onClick.bind(this);
+
+    protected onMouseMove(event: MouseEvent) {
         const { lastPick, tooltipTracking } = this;
         const pick = this.pickSeriesNode(event.offsetX, event.offsetY);
         let nodeDatum: SeriesNodeDatum | undefined;
@@ -827,11 +831,11 @@ export abstract class Chart extends Observable {
         }
     }
 
-    private readonly onMouseOut = (_: MouseEvent) => {
+    protected onMouseOut(_: MouseEvent) {
         this.toggleTooltip(false);
     }
 
-    private readonly onClick = (event: MouseEvent) => {
+    protected onClick(event: MouseEvent) {
         this.checkSeriesNodeClick();
         this.checkLegendClick(event);
     }

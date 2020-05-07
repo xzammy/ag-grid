@@ -188,14 +188,14 @@ export class Axis<S extends Scale<D, number>, D = any> {
         this.scale.range = value;
     }
     get range(): number[] {
-        return this.scale.range;
+        return this.scale.range.slice();
     }
 
     set domain(value: D[]) {
         this.scale.domain = value;
     }
     get domain(): D[] {
-        return this.scale.domain;
+        return this.scale.domain.slice();
     }
 
     private tickFormatter?: (datum: any) => string;
