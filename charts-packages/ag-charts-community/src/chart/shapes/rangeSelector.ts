@@ -1,6 +1,7 @@
 import { Group } from "../../scene/group";
 import { RangeHandle } from "./rangeHandle";
 import { RangeMask } from "./rangeMask";
+import { BBox } from "../../scene/bbox";
 
 export class RangeSelector extends Group {
     static className = 'Range';
@@ -79,6 +80,7 @@ export class RangeSelector extends Group {
     set min(value: number) {
         this.mask.min = value;
         this.updateHandles();
+        this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
     }
     get min(): number {
         return this.mask.min;
@@ -88,16 +90,24 @@ export class RangeSelector extends Group {
     set max(value: number) {
         this.mask.max = value;
         this.updateHandles();
+        this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
     }
     get max(): number {
         return this.mask.max;
     }
+
+    onRangeChange?: (min: number, max: number) => any;
 
     private updateHandles() {
         const { minHandle, maxHandle, x, y, width, height, mask } = this;
         minHandle.centerX = x + width * mask.min;
         maxHandle.centerX = x + width * mask.max;
         minHandle.centerY = maxHandle.centerY = y + height / 2;
+    }
+
+    computeBBox(): BBox {
+        const { x, y, width, height } = this;
+        return new BBox(x, y, width, height);
     }
 
     render(ctx: CanvasRenderingContext2D) {
