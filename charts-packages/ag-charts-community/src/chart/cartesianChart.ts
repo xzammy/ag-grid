@@ -190,9 +190,19 @@ export class CartesianChart extends Chart {
 
     protected onMouseMove(event: MouseEvent) {
         super.onMouseMove(event);
+        this.onRangeSelectorMouseMove(event);
+    }
 
-        const { minHandle, maxHandle } = this.rangeSelector;
+    protected onRangeSelectorMouseMove(event: MouseEvent) {
+        const { rangeSelector } = this;
+        const { minHandle, maxHandle } = rangeSelector;
         const { style } = this.element;
+        const { offsetX, offsetY } = event;
+
+        function getRatio() {
+            const bbox = rangeSelector.computeBBox();
+            return Math.min(Math.max((offsetX - bbox.x) / bbox.width, 0), 1);
+        }
 
         if (minHandle.isPointInNode(event.offsetX, event.offsetY)) {
             style.cursor = 'ew-resize';
@@ -201,6 +211,67 @@ export class CartesianChart extends Chart {
         } else {
             style.cursor = 'default';
         }
+
+        if (this.minHandleDragging) {
+            const ratio = getRatio();
+            if (!isNaN(ratio)) {
+                rangeSelector.min = ratio;
+            }
+        }
+        if (this.maxHandleDragging) {
+            const ratio = getRatio();
+            if (!isNaN(ratio)) {
+                rangeSelector.max = ratio;
+            }
+        }
+    }
+
+    private _onMouseDown: any;
+    private _onMouseUp: any;
+
+    private minHandleDragging = false;
+    private maxHandleDragging = false;
+
+    protected onMouseDown(event: MouseEvent) {
+        const { minHandle, maxHandle } = this.rangeSelector;
+        const { offsetX, offsetY } = event;
+
+        if (!(this.minHandleDragging || this.maxHandleDragging)) {
+            if (minHandle.isPointInNode(offsetX, offsetY)) {
+                this.minHandleDragging = true;
+            } else if (maxHandle.isPointInNode(offsetX, offsetY)) {
+                this.maxHandleDragging = true;
+            }
+        }
+    }
+
+    protected onMouseOut(event: MouseEvent) {
+        super.onMouseOut(event);
+        this.stopHandleDragging();
+    }
+
+    protected onMouseUp(event: MouseEvent) {
+        this.stopHandleDragging();
+    }
+
+    protected stopHandleDragging() {
+        this.minHandleDragging = this.maxHandleDragging = false;
+    }
+
+    protected setupDomListeners(chartElement: HTMLCanvasElement) {
+        super.setupDomListeners(chartElement);
+
+        this._onMouseDown = this.onMouseDown.bind(this);
+        this._onMouseUp = this.onMouseUp.bind(this);
+        chartElement.addEventListener('mousedown', this._onMouseDown);
+        chartElement.addEventListener('mouseup', this._onMouseUp);
+    }
+
+    protected cleanupDomListeners(chartElement: HTMLCanvasElement) {
+        super.cleanupDomListeners(chartElement);
+
+        chartElement.removeEventListener('mousedown', this._onMouseDown);
+        chartElement.removeEventListener('mouseup', this._onMouseUp);
     }
 
     updateAxes() {

@@ -690,13 +690,13 @@ export abstract class Chart extends Observable {
         legendGroup.translationY = Math.floor(translationY + legendGroup.translationY);
     }
 
-    private setupDomListeners(chartElement: HTMLCanvasElement) {
+    protected setupDomListeners(chartElement: HTMLCanvasElement) {
         chartElement.addEventListener('mousemove', this._onMouseMove);
         chartElement.addEventListener('mouseout', this._onMouseOut);
         chartElement.addEventListener('click', this._onClick);
     }
 
-    private cleanupDomListeners(chartElement: HTMLCanvasElement) {
+    protected cleanupDomListeners(chartElement: HTMLCanvasElement) {
         chartElement.removeEventListener('mousemove', this._onMouseMove);
         chartElement.removeEventListener('mouseout', this._onMouseOut);
         chartElement.removeEventListener('click', this._onClick);
@@ -831,7 +831,7 @@ export abstract class Chart extends Observable {
         }
     }
 
-    protected onMouseOut(_: MouseEvent) {
+    protected onMouseOut(event: MouseEvent) {
         this.toggleTooltip(false);
     }
 
