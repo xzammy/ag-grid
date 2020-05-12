@@ -133,8 +133,10 @@ export class HdpiCanvas {
         return this._height;
     }
 
+    onResize?: (width: number, height: number) => any;
+
     private _resizeHandle = 0;
-    resize(width: number, height: number, callbackWhenDone?: (width: number, height: number) => void) {
+    resize(width: number, height: number) {
         cancelAnimationFrame(this._resizeHandle);
 
         this._width = width = Math.round(width);
@@ -148,9 +150,7 @@ export class HdpiCanvas {
             element.style.height = height + 'px';
             context.resetTransform();
 
-            // The canvas being resized is asynchronous. For the case where we
-            // need to do something after it is resized, return a promise.
-            callbackWhenDone && callbackWhenDone(width, height);
+            this.onResize && this.onResize(width, height);
         });
     }
 
