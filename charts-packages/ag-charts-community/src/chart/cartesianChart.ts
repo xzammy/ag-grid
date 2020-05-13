@@ -204,9 +204,9 @@ export class CartesianChart extends Chart {
             return Math.min(Math.max((offsetX - bbox.x) / bbox.width, 0), 1);
         }
 
-        if (minHandle.isPointInNode(event.offsetX, event.offsetY)) {
+        if (minHandle.isPointInNode(offsetX, offsetY)) {
             style.cursor = 'ew-resize';
-        } else if (maxHandle.isPointInNode(event.offsetX, event.offsetY)) {
+        } else if (maxHandle.isPointInNode(offsetX, offsetY)) {
             style.cursor = 'ew-resize';
         } else {
             style.cursor = 'default';

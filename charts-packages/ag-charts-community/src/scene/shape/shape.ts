@@ -155,6 +155,19 @@ export abstract class Shape extends Node {
         return this._strokeWidth;
     }
 
+    // An offset value to align to the pixel grid.
+    get alignment(): number {
+        return Math.floor(this.strokeWidth) % 2 / 2;
+    }
+    // Returns the aligned `start` or `length` value.
+    // For example: `start` could be `y` and `length` could be `height` of a rectangle.
+    align(alignment: number, start: number, length?: number) {
+        if (length != undefined) {
+            return Math.floor(length) + Math.floor(start % 1 + length % 1);
+        }
+        return Math.floor(start) + alignment;
+    }
+
     protected _lineDash: number[] | undefined = Shape.defaultStyles.lineDash;
     set lineDash(value: number[] | undefined) {
         const oldValue = this._lineDash;
