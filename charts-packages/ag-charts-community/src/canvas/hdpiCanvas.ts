@@ -19,7 +19,7 @@ export class HdpiCanvas {
         this.element.style.userSelect = 'none';
         this.element.style.display = 'block';
 
-        this.updatePixelRatio();
+        this.setPixelRatio();
         this.resize(width, height);
     }
 
@@ -106,11 +106,11 @@ export class HdpiCanvas {
     }
 
     /**
-     * Updates the pixel ratio of the Canvas element with the given value,
+     * Changes the pixel ratio of the Canvas element to the given value,
      * or uses the window.devicePixelRatio (default), then resizes the Canvas
      * element accordingly (default).
      */
-    updatePixelRatio(ratio?: number) {
+    setPixelRatio(ratio?: number) {
         const pixelRatio = ratio || window.devicePixelRatio;
 
         if (pixelRatio === this.pixelRatio) {
@@ -121,6 +121,13 @@ export class HdpiCanvas {
 
         this._pixelRatio = pixelRatio;
         this.resize(this.width, this.height);
+    }
+
+    set pixelated(value: boolean) {
+        this.element.style.imageRendering = value ? 'pixelated' : 'auto';
+    }
+    get pixelated(): boolean {
+        return this.element.style.imageRendering === 'pixelated';
     }
 
     private _width: number;
