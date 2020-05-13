@@ -30,6 +30,7 @@ export class RangeHandle extends Path {
         return this._centerY;
     }
 
+    // Use even numbers for better looking results.
     protected _width: number = 8;
     set width(value: number) {
         if (this._width !== value) {

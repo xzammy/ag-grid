@@ -194,35 +194,37 @@ export class CartesianChart extends Chart {
     }
 
     protected onRangeSelectorMouseMove(event: MouseEvent) {
-        const { rangeSelector } = this;
+        const { rangeSelector, panHandleOffset } = this;
         const { minHandle, maxHandle } = rangeSelector;
         const { style } = this.element;
         const { offsetX, offsetY } = event;
+        const { x, y, width, height } = rangeSelector;
+        const minX = x + width * rangeSelector.min;
+        const maxX = x + width * rangeSelector.max;
+        const visibleRange = new BBox(minX, y, maxX - minX, height);
 
         function getRatio() {
-            const bbox = rangeSelector.computeBBox();
-            return Math.min(Math.max((offsetX - bbox.x) / bbox.width, 0), 1);
+            return Math.min(Math.max((offsetX - x) / width, 0), 1);
         }
 
-        if (minHandle.isPointInNode(offsetX, offsetY)) {
+        if (minHandle.containsPoint(offsetX, offsetY)) {
             style.cursor = 'ew-resize';
-        } else if (maxHandle.isPointInNode(offsetX, offsetY)) {
+        } else if (maxHandle.containsPoint(offsetX, offsetY)) {
             style.cursor = 'ew-resize';
+        } else if (visibleRange.containsPoint(offsetX, offsetY)) {
+            style.cursor = 'grab';
         } else {
             style.cursor = 'default';
         }
 
         if (this.minHandleDragging) {
-            const ratio = getRatio();
-            if (!isNaN(ratio)) {
-                rangeSelector.min = ratio;
-            }
-        }
-        if (this.maxHandleDragging) {
-            const ratio = getRatio();
-            if (!isNaN(ratio)) {
-                rangeSelector.max = ratio;
-            }
+            rangeSelector.min = getRatio();
+        } else if (this.maxHandleDragging) {
+            rangeSelector.max = getRatio();
+        } else if (!isNaN(panHandleOffset)) {
+            const span = rangeSelector.max - rangeSelector.min;
+            rangeSelector.min = Math.min(getRatio() - panHandleOffset, 1 - span);
+            rangeSelector.max = rangeSelector.min + span;
         }
     }
 
@@ -231,16 +233,21 @@ export class CartesianChart extends Chart {
 
     private minHandleDragging = false;
     private maxHandleDragging = false;
+    private panHandleOffset = NaN;
 
     protected onMouseDown(event: MouseEvent) {
-        const { minHandle, maxHandle } = this.rangeSelector;
         const { offsetX, offsetY } = event;
+        const { rangeSelector } = this;
+        const { minHandle, maxHandle, x, width, min } = rangeSelector;
+        const visibleRange = rangeSelector.computeVisibleRangeBBox();
 
         if (!(this.minHandleDragging || this.maxHandleDragging)) {
-            if (minHandle.isPointInNode(offsetX, offsetY)) {
+            if (minHandle.containsPoint(offsetX, offsetY)) {
                 this.minHandleDragging = true;
-            } else if (maxHandle.isPointInNode(offsetX, offsetY)) {
+            } else if (maxHandle.containsPoint(offsetX, offsetY)) {
                 this.maxHandleDragging = true;
+            } else if (visibleRange.containsPoint(offsetX, offsetY)) {
+                this.panHandleOffset = (offsetX - x) / width - min;
             }
         }
     }
@@ -256,6 +263,7 @@ export class CartesianChart extends Chart {
 
     protected stopHandleDragging() {
         this.minHandleDragging = this.maxHandleDragging = false;
+        this.panHandleOffset = NaN;
     }
 
     protected setupDomListeners(chartElement: HTMLCanvasElement) {

@@ -330,7 +330,7 @@ export abstract class Shape extends Node {
         }
     }
 
-    isPointInNode(x: number, y: number): boolean {
+    containsPoint(x: number, y: number): boolean {
         return this.isPointInPath(x, y);
     }
 

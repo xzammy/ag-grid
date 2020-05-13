@@ -1,4 +1,5 @@
 import { Path } from "../../scene/shape/path";
+import { BBox } from "../../scene/bbox";
 
 export class RangeMask extends Path {
     static className = 'RangeMask';
@@ -73,6 +74,18 @@ export class RangeMask extends Path {
     }
     get max(): number {
         return this._max;
+    }
+
+    computeBBox(): BBox {
+        const { x, y, width, height } = this;
+        return new BBox(x, y, width, height);
+    }
+
+    computeVisibleRangeBBox(): BBox {
+        const { x, y, width, height, min, max } = this;
+        const minX = x + width * min;
+        const maxX = x + width * max;
+        return new BBox(minX, y, maxX - minX, height);
     }
 
     updatePath() {

@@ -14,7 +14,7 @@ export class ClipRect extends Node {
 
     protected path = new Path2D();
 
-    isPointInNode(x: number, y: number): boolean {
+    containsPoint(x: number, y: number): boolean {
         const point = this.transformPoint(x, y);
         return point.x >= this.x && point.x <= this.x + this.width
             && point.y >= this.y && point.y <= this.y + this.height;

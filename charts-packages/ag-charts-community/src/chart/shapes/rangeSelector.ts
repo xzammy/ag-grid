@@ -78,6 +78,9 @@ export class RangeSelector extends Group {
 
     protected _min: number = RangeSelector.defaults.min;
     set min(value: number) {
+        if (value < 0 || value > 1) {
+            return;
+        }
         this.mask.min = value;
         this.updateHandles();
         this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
@@ -88,6 +91,9 @@ export class RangeSelector extends Group {
 
     protected _max: number = RangeSelector.defaults.max;
     set max(value: number) {
+        if (value < 0 || value > 1) {
+            return;
+        }
         this.mask.max = value;
         this.updateHandles();
         this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
@@ -106,8 +112,11 @@ export class RangeSelector extends Group {
     }
 
     computeBBox(): BBox {
-        const { x, y, width, height } = this;
-        return new BBox(x, y, width, height);
+        return this.mask.computeBBox();
+    }
+
+    computeVisibleRangeBBox(): BBox {
+        return this.mask.computeVisibleRangeBBox();
     }
 
     render(ctx: CanvasRenderingContext2D) {
