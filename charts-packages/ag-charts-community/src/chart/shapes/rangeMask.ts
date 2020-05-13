@@ -77,23 +77,29 @@ export class RangeMask extends Path {
 
     updatePath() {
         const { path, x, y, width, height, min, max } = this;
+        const { alignment: a, align: al } = this;
 
         path.clear();
 
-        // Whole range.
-        path.moveTo(x, y);
-        path.lineTo(x + width, y);
-        path.lineTo(x + width, y + height);
-        path.lineTo(x, y + height);
-        path.lineTo(x, y);
+        const ax = al(a, x);
+        const ay = al(a, y);
+        const axw = ax + al(a, x, width);
+        const ayh = ay + al(a, y, height);
 
-        const minX = x + width * min;
-        const maxX = x + width * max;
+        // Whole range.
+        path.moveTo(ax, ay);
+        path.lineTo(axw, ay);
+        path.lineTo(axw, ayh);
+        path.lineTo(ax, ayh);
+        path.lineTo(ax, ay);
+
+        const minX = al(a, x + width * min);
+        const maxX = al(a, x + width * max);
         // Visible range.
-        path.moveTo(minX, y);
-        path.lineTo(minX, y + height);
-        path.lineTo(maxX, y + height);
-        path.lineTo(maxX, y);
-        path.lineTo(minX, y);
+        path.moveTo(minX, ay);
+        path.lineTo(minX, ayh);
+        path.lineTo(maxX, ayh);
+        path.lineTo(maxX, ay);
+        path.lineTo(minX, ay);
     }
 }
