@@ -177,6 +177,7 @@ export class Axis<S extends Scale<D, number>, D = any> {
 
     constructor(scale: S) {
         this.scale = scale;
+        this.requestedRange = scale.range.slice();
         this.groupSelection = Selection.select(this.group).selectAll<Group>();
         this.label.onFormatChange = this.onTickFormatChange.bind(this);
         this.group.append(this.lineNode);
@@ -184,15 +185,42 @@ export class Axis<S extends Scale<D, number>, D = any> {
         // this.group.append(this.bboxRect); // debug (bbox)
     }
 
+    protected updateRange() {
+        const { requestedRange: rr, visibleRange: vr, scale } = this;
+        const span = (rr[1] - rr[0]) / (vr[1] - vr[0]);
+        const shift = span * vr[0];
+        const start = rr[0] - shift;
+
+        scale.range = [start, start + span];
+    }
+
+    private requestedRange: number[];
     set range(value: number[]) {
-        this.scale.range = value;
+        this.requestedRange = value.slice();
+        this.updateRange();
     }
     get range(): number[] {
-        return this.scale.range.slice();
+        return this.requestedRange.slice();
+    }
+
+    protected _visibleRange: number[] = [0, 1];
+    set visibleRange(value: number[]) {
+        if (value && value.length === 2) {
+            let [min, max] = value;
+            min = Math.max(0, min);
+            max = Math.min(1, max);
+            min = Math.min(min, max);
+            max = Math.max(min, max);
+            this._visibleRange = [min, max];
+            this.updateRange();
+        }
+    }
+    get visibleRange(): number[] {
+        return this._visibleRange.slice();
     }
 
     set domain(value: D[]) {
-        this.scale.domain = value;
+        this.scale.domain = value.slice();
     }
     get domain(): D[] {
         return this.scale.domain.slice();
@@ -292,10 +320,11 @@ export class Axis<S extends Scale<D, number>, D = any> {
      * it will also make it harder to reason about the program.
      */
     update() {
-        const { group, scale, tick, label, gridStyle } = this;
+        const { group, scale, visibleRange, tick, label, gridStyle } = this;
         const rotation = toRadians(this.rotation);
         const parallelLabels = label.parallel;
         const labelRotation = normalizeAngle360(toRadians(label.rotation));
+        const [min, max] = visibleRange;
 
         group.translationX = this.translation.x;
         group.translationY = this.translation.y;
