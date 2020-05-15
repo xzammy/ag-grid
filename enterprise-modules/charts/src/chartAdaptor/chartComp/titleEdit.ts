@@ -57,7 +57,7 @@ export class TitleEdit extends Component {
         const destroyDbleClickListener = this.addDestroyableEventListener(canvas, 'dblclick', event => {
             const { title } = chart;
 
-            if (title && title.node.isPointInNode(event.offsetX, event.offsetY)) {
+            if (title && title.node.containsPoint(event.offsetX, event.offsetY)) {
                 const bbox = title.node.computeBBox();
                 const xy = title.node.inverseTransformPoint(bbox.x, bbox.y);
 
@@ -68,7 +68,7 @@ export class TitleEdit extends Component {
         const destroyMouseMoveListener = this.addDestroyableEventListener(canvas, 'mousemove', event => {
             const { title } = chart;
 
-            const inTitle = title && title.node.isPointInNode(event.offsetX, event.offsetY);
+            const inTitle = title && title.node.containsPoint(event.offsetX, event.offsetY);
 
             canvas.style.cursor = inTitle ? 'pointer' : '';
         });

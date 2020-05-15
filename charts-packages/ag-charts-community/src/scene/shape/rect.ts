@@ -153,12 +153,8 @@ export class Rect extends Path {
     }
 
     computeBBox(): BBox {
-        return new BBox(
-            this.x,
-            this.y,
-            this.width,
-            this.height
-        );
+        const { x, y, width, height } = this;
+        return new BBox(x, y, width, height);
     }
 
     isPointInPath(x: number, y: number): boolean {
