@@ -243,8 +243,9 @@ export class CartesianChart extends Chart {
             rangeSelector.max = getRatio();
         } else if (!isNaN(panHandleOffset)) {
             const span = rangeSelector.max - rangeSelector.min;
-            rangeSelector.min = Math.min(getRatio() - panHandleOffset, 1 - span);
-            rangeSelector.max = rangeSelector.min + span;
+            const min = Math.min(getRatio() - panHandleOffset, 1 - span);
+            rangeSelector.min = min;
+            rangeSelector.max = min + span;
         }
     }
 
