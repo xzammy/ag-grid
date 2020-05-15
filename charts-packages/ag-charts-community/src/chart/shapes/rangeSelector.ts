@@ -37,6 +37,11 @@ export class RangeSelector extends Group {
 
         this.append([mask, minHandle, maxHandle]);
 
+        mask.onRangeChange = (min, max) => {
+            this.updateHandles();
+            this.onRangeChange && this.onRangeChange(min, max);
+        };
+
         return mask;
     })();
 
@@ -78,13 +83,7 @@ export class RangeSelector extends Group {
 
     protected _min: number = RangeSelector.defaults.min;
     set min(value: number) {
-        value = Math.max(0, Math.min(1, value));
-        if (isNaN(value)) {
-            return;
-        }
         this.mask.min = value;
-        this.updateHandles();
-        this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
     }
     get min(): number {
         return this.mask.min;
@@ -92,12 +91,7 @@ export class RangeSelector extends Group {
 
     protected _max: number = RangeSelector.defaults.max;
     set max(value: number) {
-        if (value < 0 || value > 1) {
-            return;
-        }
         this.mask.max = value;
-        this.updateHandles();
-        this.onRangeChange && this.onRangeChange(this.mask.min, this.mask.max);
     }
     get max(): number {
         return this.mask.max;

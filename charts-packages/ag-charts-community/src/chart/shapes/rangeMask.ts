@@ -57,9 +57,13 @@ export class RangeMask extends Path {
     protected _min: number = 0;
     set min(value: number) {
         value = Math.min(Math.max(value, 0), this.max - this.minRange);
+        if (isNaN(value)) {
+            return;
+        }
         if (this._min !== value) {
             this._min = value;
             this.dirtyPath = true;
+            this.onRangeChange && this.onRangeChange(value, this.max);
         }
     }
     get min(): number {
@@ -69,14 +73,20 @@ export class RangeMask extends Path {
     protected _max: number = 1;
     set max(value: number) {
         value = Math.max(Math.min(value, 1), this.min + this.minRange);
+        if (isNaN(value)) {
+            return;
+        }
         if (this._max !== value) {
             this._max = value;
             this.dirtyPath = true;
+            this.onRangeChange && this.onRangeChange(this.min, value);
         }
     }
     get max(): number {
         return this._max;
     }
+
+    onRangeChange?: (min: number, max: number) => any;
 
     computeBBox(): BBox {
         const { x, y, width, height } = this;
