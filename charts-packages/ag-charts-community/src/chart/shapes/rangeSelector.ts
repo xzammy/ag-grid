@@ -78,7 +78,8 @@ export class RangeSelector extends Group {
 
     protected _min: number = RangeSelector.defaults.min;
     set min(value: number) {
-        if (value < 0 || value > 1) {
+        value = Math.max(0, Math.min(1, value));
+        if (isNaN(value)) {
             return;
         }
         this.mask.min = value;
