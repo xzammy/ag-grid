@@ -3,7 +3,7 @@ import { numericExtent } from "../util/array";
 import { Group } from "../scene/group";
 import { CategoryAxis } from "./axis/categoryAxis";
 import { GroupedCategoryAxis } from "./axis/groupedCategoryAxis";
-import { ChartAxisPosition } from "./chartAxis";
+import { ChartAxisPosition, ChartAxisDirection } from "./chartAxis";
 import { Series } from "./series/series";
 import { BBox } from "../scene/bbox";
 import { ClipRect } from "../scene/clipRect";
@@ -21,11 +21,21 @@ export class CartesianChart extends Chart {
         this.scene.root.visible = false;
 
         const root = this.scene.root!;
+        root.append(this.rangeSelectorClip);
         root.append(this._seriesRoot);
         root.append(this.legend.group);
         root.append(this.rangeSelector);
 
         this.rangeSelector.height = 30;
+        this.rangeSelector.onRangeChange = (min, max) => {
+            this.axes.forEach(axis => {
+                if (axis.direction === ChartAxisDirection.X) {
+                    axis.visibleRange = [min, max];
+                    axis.update();
+                }
+            });
+            this.series.forEach(series => series.update());
+        };
     }
 
     private _seriesRoot = new ClipRect();
@@ -34,6 +44,7 @@ export class CartesianChart extends Chart {
     }
 
     readonly rangeSelector = new RangeSelector();
+    private rangeSelectorClip = new ClipRect();
 
     performLayout(): void {
         if (this.dataPending) {
@@ -121,6 +132,7 @@ export class CartesianChart extends Chart {
             }
         });
 
+        const { rangeSelectorClip } = this;
         axes.forEach(axis => {
             switch (axis.position) {
                 case ChartAxisPosition.Top:
@@ -138,6 +150,9 @@ export class CartesianChart extends Chart {
                     axis.gridLength = shrinkRect.width;
                     break;
                 case ChartAxisPosition.Bottom:
+                    if (axis.group.parent !== rangeSelectorClip) {
+                        rangeSelectorClip.appendChild(axis.group.parent.removeChild(axis.group));
+                    }
                     axis.translation.x = Math.floor(shrinkRect.x);
                     axis.range = [0, shrinkRect.width];
                     axis.gridLength = shrinkRect.height;
@@ -168,6 +183,11 @@ export class CartesianChart extends Chart {
         seriesRoot.y = shrinkRect.y;
         seriesRoot.width = shrinkRect.width;
         seriesRoot.height = shrinkRect.height;
+
+        rangeSelectorClip.x = shrinkRect.x;
+        rangeSelectorClip.y = 0;
+        rangeSelectorClip.width = shrinkRect.width;
+        rangeSelectorClip.height = height;
 
         if (this.rangeSelector.visible) {
             rangeSelector.x = shrinkRect.x;
