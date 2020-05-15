@@ -492,6 +492,7 @@ export class Axis<S extends Scale<D, number>, D = any> {
 
             titleNode.rotation = titleRotationFlag * sideFlag * Math.PI / 2;
             titleNode.x = titleRotationFlag * sideFlag * (lineNode.y1 + lineNode.y2) / 2;
+            titleNode.x = titleRotationFlag * sideFlag * (this.requestedRange[0] + this.requestedRange[1]) / 2;
 
             if (sideFlag === -1) {
                 titleNode.y = titleRotationFlag * (-padding - bbox.width + Math.max(bbox.x + bbox.width, 0));
