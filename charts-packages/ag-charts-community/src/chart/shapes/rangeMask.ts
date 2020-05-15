@@ -52,9 +52,11 @@ export class RangeMask extends Path {
         return this._height;
     }
 
+    minRange = 0.05;
+
     protected _min: number = 0;
     set min(value: number) {
-        value = Math.min(Math.max(value, 0), this.max);
+        value = Math.min(Math.max(value, 0), this.max - this.minRange);
         if (this._min !== value) {
             this._min = value;
             this.dirtyPath = true;
@@ -66,7 +68,7 @@ export class RangeMask extends Path {
 
     protected _max: number = 1;
     set max(value: number) {
-        value = Math.max(Math.min(value, 1), this.min);
+        value = Math.max(Math.min(value, 1), this.min + this.minRange);
         if (this._max !== value) {
             this._max = value;
             this.dirtyPath = true;
